@@ -5,6 +5,12 @@ en:
       new_user?: "New user?"
       sign_up_now!: "Sign up now!"
       remember_me: "Remember me on this computer"
+      or: "or"
+      continue_with_google: "Continue with Google"
     create:
       login_success: "Login successful"
       invalid_email_or_password: "Invalid email or password"
+    omniauth:
+      login_success: "Login successful with Google"
+      auth_failed: "Authentication failed with Google"
+      created_failed: "Failed to create user from Google authentication"

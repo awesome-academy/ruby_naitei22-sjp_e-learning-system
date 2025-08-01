@@ -5,6 +5,12 @@ vi:
       new_user?: "Người dùng mới?"
       sign_up_now!: "Đăng ký ngay!"
       remember_me: "Ghi nhớ tôi trên máy tính này"
+      or: "hoặc"
+      continue_with_google: "Tiếp tục với Google"
     create:
       login_success: "Đăng nhập thành công"
       invalid_email_or_password: "Email hoặc mật khẩu không hợp lệ"
+    omniauth:
+      login_success: "Đăng nhập thành công với Google"
+      auth_failed: "Xác thực thất bại với Google"
+      created_failed: "Tạo người dùng từ xác thực Google thất bại"

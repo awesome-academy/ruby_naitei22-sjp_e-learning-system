@@ -20,6 +20,28 @@ class SessionsController < ApplicationController
     redirect_to root_url, status: :see_other
   end
 
+  def omniauth
+    auth = request.env["omniauth.auth"]
+
+    unless auth
+      flash[:danger] = t(".auth_failed")
+      return render :new, status: :unprocessable_entity
+    end
+
+    user = User.find_or_create_from_auth_hash auth
+
+    unless user
+      flash[:danger] = t(".created_failed")
+      return render :new, status: :unprocessable_entity
+    end
+
+    reset_session
+    log_in user
+    remember user
+    flash[:success] = t(".login_success")
+    redirect_to user, status: :see_other
+  end
+
   private
 
   def handle_successful_login user

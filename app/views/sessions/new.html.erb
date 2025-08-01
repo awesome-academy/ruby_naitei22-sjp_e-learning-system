@@ -14,5 +14,14 @@
       <%= f.submit t(".log_in"), class: "btn btn-primary" %>
     <% end %>
     <p><%= t(".new_user?") %><%= link_to t(".sign_up_now!"), signup_path %></p>
+    <div class="text-center my-4">
+      <span class="text-muted">— <%= t(".or") %> —</span>
+    </div>
+    <%= form_tag("/auth/google_oauth2", method: "post", data: { turbo: false }) do %>
+      <button type="submit" class="google-btn">
+        <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Logo">
+        <span><%= t(".continue_with_google") %></span>
+      </button>
+    <% end %>
   </div>
 </div>
