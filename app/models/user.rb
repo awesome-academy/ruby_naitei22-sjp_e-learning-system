@@ -20,8 +20,9 @@ class User < ApplicationRecord
             length: {maximum: Settings.user.max_email_length},
             format: {with: VALID_EMAIL_REGEX},
             uniqueness: {case_sensitive: false}
-  validates :birthday, presence: true
-  validates :gender, presence: true
+  validates :birthday, presence: true, unless: :oauth_user?
+  validates :gender, presence: true, unless: :oauth_user?
+  validates :uid, uniqueness: {scope: :provider}, allow_nil: true
 
   validate :birthday_within_100_years
 
@@ -53,6 +54,27 @@ class User < ApplicationRecord
 
   def forget
     update_column :remember_digest, nil
+  end
+
+  def self.find_or_create_from_auth_hash auth
+    user = find_by(email: auth.info.email)
+
+    if user
+      user.update(provider: auth.provider, uid: auth.uid) unless user.provider
+      user
+    else
+      create!(
+        name: auth.info.name,
+        email: auth.info.email,
+        provider: auth.provider,
+        uid: auth.uid,
+        password: SecureRandom.hex(10)
+      )
+    end
+  end
+
+  def oauth_user?
+    provider.present? && uid.present?
   end
 
   private

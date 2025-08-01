@@ -145,3 +145,29 @@ input {
     color: $state-danger-text;
   }
 }
+
+/* Google button */
+.google-btn {
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+    color: #333333;
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: bold;
+    justify-content: center;
+    margin-left: 160px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.google-btn img {
+    margin-right: 10px;
+    width: 30px;
+}
+
+.google-btn:hover {
+    background-color: #f1f1f1;
+}

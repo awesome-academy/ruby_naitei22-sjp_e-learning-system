@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
 
+    get '/auth/:provider/callback', to: 'sessions#omniauth'
+    get "/auth/failure", to: redirect("/")
+
     resources :users, only: %i(show)
     resources :microposts, only: %i(index)
     resources :products
