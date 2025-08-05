@@ -3,7 +3,6 @@ vi:
     models:
       product: "Sản phẩm"
       user: "Người dùng"
-
     attributes:
       product:
         name: "Tên sản phẩm"
@@ -14,7 +13,6 @@ vi:
         password: "Mật khẩu"
         password_confirmation: "Xác nhận mật khẩu"
         gender: "Giới tính"
-
     errors:
       models:
         user:
@@ -22,3 +20,17 @@ vi:
             birthday:
               too_old: "phải nằm trong vòng 100 năm trở lại"
               in_future: "không được nằm trong tương lai"
+    attributes:
+      question:
+        content: "Nội dung câu hỏi"
+        question_type: "Loại câu hỏi"
+      test:
+        name: "Tên bài test"
+        duration: "Thời gian"
+        max_attempts: "Số lần làm tối đa"
+        description: "Mô tả"
+    enums:
+      question:
+        question_type:
+          single_choice: "Một lựa chọn"
+          multiple_choice: "Nhiều lựa chọn"

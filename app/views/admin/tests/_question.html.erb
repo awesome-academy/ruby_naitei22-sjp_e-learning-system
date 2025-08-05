@@ -1,0 +1,21 @@
+<div class="question-card">
+  <h3 class="question-content"><%= question.content %></h3>
+  <div class="question-type-label">
+    <strong><%= t(".question_type_label") %></strong>
+    <%= question.question_type.present? ? t("activerecord.enums.question.question_type.#{question.question_type}") : t(".question_type_not_selected") %>
+  </div>
+  <div class="answer-list">
+    <% question.answers.each do |answer| %>
+      <div class="answer-item">
+        <span class="answer-text <%= "correct-answer" if answer.correct %>">
+          <%= answer.content %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="question-actions">
+    <%= link_to t(".edit_question"), edit_admin_test_question_path(@test, question), class: "button-edit-question" %>
+    <%= button_to t(".delete_question"), admin_test_question_path(@test, question), method: :delete, data: { turbo_confirm: t(".delete_question_confirm") }, class: "button button-danger" %>
+  </div>
+</div>

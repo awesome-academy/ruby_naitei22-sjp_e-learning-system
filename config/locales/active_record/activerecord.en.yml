@@ -3,7 +3,6 @@ en:
     models:
       product: "Product"
       user: "User"
-
     attributes:
       product:
         name: "Name"
@@ -14,7 +13,6 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         gender: "Gender"
-
     errors:
       models:
         user:
@@ -22,3 +20,17 @@ en:
             birthday:
               too_old: "must be within the last 100 years"
               in_future: "cannot be in the future"
+    attributes:
+      question:
+        content: "Question"
+        question_type: "Question Type"
+      test:
+        name: "Test name"
+        duration: "Duration"
+        max_attempts: "Max attempts"
+        description: "Description"
+    enums:
+      question:
+        question_type:
+          single_choice: "Single choice"
+          multiple_choice: "Multiple choice"

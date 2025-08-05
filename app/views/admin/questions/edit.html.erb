@@ -1,0 +1,18 @@
+<div class="question-form-container">
+  <div class="question-form-header">
+    <h1 class="question-form-title"><%= t(".title") %></h1>
+  </div>
+
+  <% if @question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@question.errors.count, t(".explanation"), count: @question.errors.count) %></h2>
+      <ul>
+        <% @question.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render "form", test: @test, question: @question %>
+</div>

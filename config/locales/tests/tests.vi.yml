@@ -1,0 +1,30 @@
+vi:
+  admin:
+    tests:
+      test_not_found: "Không tìm thấy bài test."
+      create:
+        success: "Bài test đã được tạo thành công."
+        failure: "Không thể tạo bài test."
+      update:
+        success: "Bài test đã được cập nhật thành công."
+        failure: "Không thể cập nhật bài test."
+      destroy:
+        success: "Bài test đã được xóa thành công."
+        failure: "Không thể xóa bài test."
+      show:
+        duration: "Thời gian: %{duration} phút"
+        max_attempts: "Số lần làm tối đa: %{attempts}"
+        edit_test: "Chỉnh sửa bài test"
+        delete_test: "Xóa bài test"
+        delete_test_confirm: "Bạn có chắc chắn muốn xóa bài test này?"
+        questions_title: "Các câu hỏi"
+        add_new_question: "Thêm câu hỏi mới"
+        question_type_label: "Loại câu hỏi:"
+        question_type_not_selected: "Chưa chọn"
+        edit_question: "Chỉnh sửa"
+        delete_question: "Xóa"
+        delete_question_confirm: "Bạn có chắc chắn muốn xóa câu hỏi này?"
+        no_questions: "Chưa có câu hỏi nào trong bài test này."
+      new:
+        title: "Tạo Bài Test Mới"
+        submit_button: "Tạo Test"

@@ -1,0 +1,12 @@
+vi:
+  admin:
+    answers:
+      test_not_found: "Không tìm thấy bài test."
+      question_not_found: "Không tìm thấy câu hỏi."
+      answer_not_found: "Không tìm thấy câu trả lời."
+      create:
+        success: "Câu trả lời đã được tạo thành công."
+        failure: "Không thể tạo câu trả lời."
+      destroy:
+        success: "Câu trả lời đã được xóa thành công."
+        failure: "Không thể xóa câu trả lời."

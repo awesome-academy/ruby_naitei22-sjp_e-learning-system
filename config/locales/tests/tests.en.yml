@@ -1,0 +1,30 @@
+en:
+  admin:
+    tests:
+      test_not_found: "Test not found."
+      create:
+        success: "Test was successfully created."
+        failure: "Failed to create test."
+      update:
+        success: "Test was successfully updated."
+        failure: "Failed to update test."
+      destroy:
+        success: "Test was successfully deleted."
+        failure: "Failed to delete test."
+      show:
+        duration: "Duration: %{duration} minutes"
+        max_attempts: "Max attempts: %{attempts}"
+        edit_test: "Edit test"
+        delete_test: "Delete test"
+        delete_test_confirm: "Are you sure you want to delete this test?"
+        questions_title: "Questions"
+        add_new_question: "Add new question"
+        question_type_label: "Question type:"
+        question_type_not_selected: "Not selected"
+        edit_question: "Edit"
+        delete_question: "Delete"
+        delete_question_confirm: "Are you sure you want to delete this question?"
+        no_questions: "There are no questions in this test."
+      new:
+        title: "Create New Test"
+        submit_button: "Create Test"

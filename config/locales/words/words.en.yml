@@ -6,8 +6,8 @@ en:
         word_type: "Word type"
         meaning: "Meaning"
     submit:
-      create: "Create word"
-      update: "Update word"
+      create: "Create"
+      update: "Update"
   admin:
     words:
       create:

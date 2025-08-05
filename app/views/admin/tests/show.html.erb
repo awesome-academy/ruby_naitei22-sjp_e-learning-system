@@ -1,0 +1,30 @@
+<div class="test-show-container">
+  <div class="test-info-card">
+    <h1 class="test-title"><%= @test.name %></h1>
+    <p class="test-description"><%= @test.description %></p>
+    <div class="test-meta">
+      <span class="test-duration"><%= t(".duration", duration: @test.duration) %></span>
+      <span class="test-attempts"><%= t(".max_attempts", attempts: @test.max_attempts) %></span>
+    </div>
+    <div class="test-actions">
+      <%= link_to t(".edit_test"), edit_admin_test_path(@test), class: "button button-secondary" %>
+      <%= button_to t(".delete_test"), admin_test_path(@test), method: :delete, data: { turbo_confirm: t(".delete_test_confirm") }, class: "button button-danger" %>
+    </div>
+  </div>
+
+  <div class="questions-section">
+    <div class="questions-header">
+      <h2 class="questions-title"><%= t(".questions_title") %></h2>
+      <%= link_to t(".add_new_question"), new_admin_test_question_path(@test), class: "button button-primary" %>
+    </div>
+
+    <% if @questions.any? %>
+      <div class="questions-list">
+        <%= render partial: "question", collection: @questions %>
+      </div>
+
+    <% else %>
+      <p class="no-questions-message"><%= t(".no_questions") %></p>
+    <% end %>
+  </div>
+</div>

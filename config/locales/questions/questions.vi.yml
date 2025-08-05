@@ -1,0 +1,34 @@
+vi:
+  admin:
+    questions:
+      not_found: "Không tìm thấy câu hỏi."
+      create:
+        success: "Câu hỏi đã được tạo thành công."
+        failure: "Không thể tạo câu hỏi."
+      update:
+        success: "Câu hỏi đã được cập nhật thành công."
+        failure: "Không thể cập nhật câu hỏi."
+      destroy:
+        success: "Câu hỏi đã được xóa thành công."
+        failure: "Không thể xóa câu hỏi."
+      form:
+        question_label: "Nội dung câu hỏi"
+        add_answer_button: "Thêm câu trả lời"
+        cancel_button: "Hủy"
+      new:
+        title: "Tạo Câu Hỏi Mới"
+      edit:
+        title: "Chỉnh Sửa Câu Hỏi"
+      errors:
+        count:
+          one: "1 lỗi đã xảy ra:"
+          other: "%{count} lỗi đã xảy ra:"
+        explanation: "lỗi đã xảy ra:"
+      answer_fields:
+        content_placeholder: "Nội dung câu trả lời"
+      question_fields:
+        question_type_single: "Một đáp án"
+        question_type_multiple: "Nhiều đáp án"
+        question_content_label: "Nội dung câu hỏi"
+        question_content_placeholder: "Nhập nội dung câu hỏi..."
+        add_answer_button: "Thêm câu trả lời"

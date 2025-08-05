@@ -1,0 +1,38 @@
+<div class="answer-field" data-question-form-target="answerField">
+  <%= form.hidden_field :_destroy %>
+
+  <div class="answer-checkbox" data-question-form-target="answerInputContainer">
+    <%= form.hidden_field :correct, value: false %>
+
+    <%= form.check_box :correct,
+                       class: "answer-is-correct-checkbox",
+                       data: {
+                         "question-form-target": "correctInput",
+                         index: form.index,
+                         "was-checked": form.object.correct ? "true" : "false",
+                         action: "click->question-form#toggleCheckbox",
+                         behavior: "checkbox-input"
+                       } %>
+
+    <input type="radio"
+           class="answer-is-correct-radio"
+           name="question[answers_attributes][<%= form.index %>][correct]"
+           value="1"
+           data-question-form-target="correctInput"
+           data-action="click->question-form#toggleRadio"
+           data-behavior="radio-input"
+           <%= "checked" if form.object.correct %>>
+  </div>
+
+  <div class="answer-content-field">
+    <%= form.text_field :content,
+                        class: "answer-content-input",
+                        placeholder: t(".content_placeholder") %>
+  </div>
+
+  <div class="answer-actions">
+    <button type="button" class="remove-answer-btn" data-action="click->question-form#removeAnswer">
+      <span class="icon-close">×</span>
+    </button>
+  </div>
+</div>
