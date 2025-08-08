@@ -6,7 +6,7 @@
 @import 'words';
 /* universal */
 body {
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 textarea {
@@ -181,26 +181,75 @@ input {
 
 /* Google button */
 .google-btn {
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #dfdfdf;
-    border-radius: 4px;
-    color: #333333;
-    cursor: pointer;
-    display: inline-flex;
-    font-weight: bold;
-    justify-content: center;
-    margin-left: 160px;
-    margin-top: 20px;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  color: #333333;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: bold;
+  justify-content: center;
+  margin-left: 160px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  transition: background-color 0.3s ease;
 }
 
 .google-btn img {
-    margin-right: 10px;
-    width: 30px;
+  margin-right: 10px;
+  width: 30px;
 }
 
 .google-btn:hover {
-    background-color: #f1f1f1;
+  background-color: #f1f1f1;
+}
+
+.container{
+  position: relative
+}
+
+.breadcrumb-container {
+  align-items: center;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  display: inline-flex;
+  left: -170px;
+  padding: 1rem;
+  position: absolute;
+  top: 55px;
+}
+
+.breadcrumb-container a,
+.breadcrumb-container span {
+  color: #6c757d;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.breadcrumb-container a .fas.fa-home {
+  color: #343a40;
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.breadcrumb-separator {
+  color: #adb5bd;
+  margin: 0 0.5rem;
+}
+
+.breadcrumb-container span:last-child {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.breadcrumb-container a:last-child {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.breadcrumb-container a:hover {
+  color: #e67e22;
+  text-decoration: underline;
 }

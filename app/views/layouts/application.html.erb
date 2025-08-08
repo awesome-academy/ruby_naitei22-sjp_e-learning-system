@@ -22,6 +22,9 @@
     <%= javascript_include_tag "https://code.jquery.com/jquery-3.6.0.min.js", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js", "data-turbo-track": "reload" %>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" xintegrity="sha512-iecdLmaskl7CVw7pD2/T8r/k7LpQvQoF40eB0w2pGz8W2e4gTzX7R0E40Gz0oF80B9y+oM5Q4bWzFwR2tH9L3/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <%= stylesheet_link_tag :application, media: "all", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -32,6 +35,9 @@
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
+      <div class="breadcrumb-container">
+        <%= yield :breadcrumbs %>
+      </div>
       <%= yield %>
     </div>
     <%= render "layouts/footer" %>
