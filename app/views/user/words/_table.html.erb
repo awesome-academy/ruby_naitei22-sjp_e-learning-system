@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="page-header">
+      <h2><i class="fa fa-book"></i> <%= t(".title") %></h2>
+    </div>
+  </div>
+  <div class="col-md-4 text-right">
+    <div class="words-count">
+      <p class="text-muted"><%= t(".total") %> <strong><%= @pagy.count %></strong></p>
+    </div>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th><%= t(".word") %></th>
+        <th><%= t(".meaning") %></th>
+        <th><%= t(".word_type") %></th>
+        <th><%= t(".status") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @words.each do |word| %>
+        <tr>
+          <td><strong><%= word.content %></strong></td>
+          <td><%= word.meaning %></td>
+          <td>
+            <% badge_class = case word.word_type
+                             when "noun" then "label-primary"
+                             when "verb" then "label-info"
+                             when "adjective" then "label-success"
+                             when "adverb" then "label-warning"
+                             else "label-default"
+                             end %>
+            <span class="label <%= badge_class %> word-badge">
+              <%= t(".word_types.#{word.word_type}", default: t(".word_types.other")) %>
+            </span>
+          </td>
+          <td>
+            <% if @learned_ids.include?(word.id) %>
+              <span class="label label-success"><%= t(".status_learned") %></span>
+            <% else %>
+              <span class="label label-default"><%= t(".status_not_learned") %></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center">
+  <%== pagy_bootstrap_nav(@pagy) %>
+</div>

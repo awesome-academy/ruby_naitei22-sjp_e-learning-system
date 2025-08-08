@@ -38,4 +38,61 @@ class Word < ApplicationRecord
       all
     end
   }
+
+  scope :search, lambda {|q, field = nil|
+    if q.present?
+      case field
+      when "content"
+        where("content LIKE ?", "#{q}%")
+      when "meaning"
+        where("meaning LIKE ?", "#{q}%")
+      else
+        where("content LIKE ? OR meaning LIKE ?", "#{q}%", "#{q}%")
+      end
+    end
+  }
+
+  scope :filter_by_type, ->(type){where(word_type: type) if type.present?}
+
+  scope :sorted, lambda {|sort|
+    case sort
+    when "alphabetical_desc"
+      order(content: :desc)
+    when "newest"
+      order(created_at: :desc)
+    when "oldest"
+      order(created_at: :asc)
+    when "word_type"
+      order(:word_type, :content)
+    else
+      order(content: :asc)
+    end
+  }
+
+  def self.learned_word_ids_for user
+    UserWord.joins(:component)
+            .where(user_id: user.id)
+            .pluck("components.word_id")
+            .uniq
+  end
+
+  scope :filter_by_status, lambda {|status, user|
+    return all if status.blank?
+
+    learned_ids = learned_word_ids_for(user)
+
+    case status
+    when "learned"
+      where(id: learned_ids)
+    when "not_learned"
+      where.not(id: learned_ids)
+    else
+      all
+    end
+  }
+
+  def learned_by? user
+    UserWord.joins(:component)
+            .exists?(user_id: user.id, components: {word_id: id})
+  end
 end

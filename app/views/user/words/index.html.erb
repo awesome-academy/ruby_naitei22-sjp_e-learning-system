@@ -1,0 +1,12 @@
+<% provide :title, t(".title") %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 col-sm-12 filter-sidebar">
+      <%= render "filter" %>
+    </div>
+
+    <div class="col-md-9 vocabulary-table">
+      <%= render "table" %>
+    </div>
+  </div>
+</div>
