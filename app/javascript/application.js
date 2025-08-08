@@ -4,7 +4,7 @@ import "controllers";
 import "custom/menu";
 import "custom/dropdown";
 import { createIcons, icons } from "lucide";
-
+import "./custom/take_test";
 document.addEventListener("DOMContentLoaded", () => {
   createIcons({ icons });
 });

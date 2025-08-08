@@ -23,6 +23,8 @@ course:
   max_duration: 365
   date_format: "%d/%m/%Y"
   
+test_pass_percentage: 80.0
+
 development:
   <<: *defaults
 

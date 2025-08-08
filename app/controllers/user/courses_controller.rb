@@ -67,7 +67,7 @@ class User::CoursesController < User::ApplicationController
     return if @user_course.present? && !@user_course.pending?
 
     flash[:danger] = t(".error.not_enrolled")
-    redirect_to root_path
+    redirect_to user_courses_path
   end
 
   def set_lessons

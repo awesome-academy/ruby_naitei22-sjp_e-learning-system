@@ -21,7 +21,8 @@ Rails.application.routes.draw do
         resources :lessons, only: %i(show) do
           member do
             get :study
-            get :test
+            get :take_test
+            post :submit_test
             get :test_history
           end
         end
