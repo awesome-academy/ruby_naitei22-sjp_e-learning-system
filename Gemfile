@@ -53,6 +53,7 @@ gem "bootstrap-sass", "3.4.1"
 
 gem "faker"
 gem "pagy"
+gem "sidekiq"
 
 # Use Sass to process CSS
 # gem "sassc-rails"

@@ -34,8 +34,13 @@ question:
   
 test_pass_percentage: 80.0
 
+max_percentage: 100
 test:
   page_number: 10
+
+commit:
+  save_draft: "save_draft"
+  true_value: "true"
 
 development:
   <<: *defaults

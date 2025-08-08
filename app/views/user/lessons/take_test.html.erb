@@ -1,0 +1,71 @@
+<!-- app/views/lessons/take_test.html.erb -->
+<% content_for :title, t(".title", number: @lesson.position, title: @lesson.title) %>
+
+  <div class="test-content">
+    <div class="test-title">
+      <h2><%= t(".title", number: @lesson.position, title: @lesson.title) %></h2>
+    </div>
+
+    <div class="test-info">
+      <p><strong><%= t(".attempt") %></strong> <%= @current_attempt %> / <%= @test.max_attempts %></p>
+      <p><strong><%= t(".duration") %></strong> <%= @test.duration %> <%= t(".minutes") %></p>
+      <% if @test.duration > 0 %>
+        <p><strong><%= t(".time_remaining") %></strong> 
+          <span id="timer" data-duration="<%= @test.duration %>">
+            <%= @test.duration %>:00
+          </span>
+        </p>
+      <% end %>
+    </div>
+
+    <%= form_with url: submit_test_user_course_lesson_path(@lesson), method: :post, local: true, class: "test-form" do |form| %>
+      <% @questions.each_with_index do |question, index| %>
+        <div class="question-block">
+          <div class="question-header">
+            <strong><%= t(".question", number: index + 1) %></strong> <%= question.content %>
+          </div>
+          <div class="answers-container">
+            <% if question.question_type == "single_choice" %>
+              <!-- Single Choice Question -->
+              <% question.answers.each do |answer| %>
+                <div class="answer-option">
+                  <%= radio_button_tag "answers[#{question.id}]", answer.id, false,
+                                      id: "answer_#{answer.id}", 
+                                      class: "hidden-radio" %>
+                  <label for="answer_<%= answer.id %>" class="custom-radio-label">
+                    <span class="radio-button"></span>
+                    <span class="radio-text"><%= answer.content %></span>
+                  </label>
+                </div>
+              <% end %>
+            <% else %>
+              <!-- Multiple Choice Question -->
+              <% question.answers.each do |answer| %>
+                <div class="answer-option">
+                  <%= check_box_tag "answers[#{question.id}][]", answer.id, false, 
+                                    id: "answer_#{answer.id}", class: "answer-input" %>
+                  <%= label_tag "answer_#{answer.id}", answer.content, class: "answer-label" %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="submit-section">
+        <%= f.submit "Lưu tạm", 
+                            name: "save_draft",
+                            value: "true",
+                            class: "btn btn-outline-primary",
+                            data: { 
+                              confirm: "Bạn có chắc muốn lưu tạm đáp án hiện tại không?"
+                            } %>
+        <%= f.submit "Nộp bài", 
+                            class: "btn btn-success",
+                            data: { 
+                              confirm: "Bạn có chắc muốn nộp bài không? Sau khi nộp sẽ không thể sửa đổi."
+                            } %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -25,12 +25,14 @@ Rails.application.routes.draw do
         resources :lessons, only: %i(show) do
           member do
             get :study
-            get :test
             get :test_history
           end
         end
       end
       resources :words, only: %i(index)
+      resources :lessons do
+        resources :user_tests, only: %i(create edit update)
+      end
     end
 
     namespace :admin do

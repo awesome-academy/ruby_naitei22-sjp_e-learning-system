@@ -1,0 +1,92 @@
+<% content_for :title, t(".title", number: @lesson.position, title: @lesson.title) %>
+
+<div class="test-content">
+  <div class="test-title">
+    <h2><%= t(".title", number: @lesson.position, title: @lesson.title) %></h2>
+  </div>
+  
+  <div class="test-info">
+    <p><strong><%= t(".attempt") %></strong> <%= @current_attempt %> / <%= @test.max_attempts %></p>
+    <% if @remaining_time && @remaining_time > 0 %>
+      <p><strong><%= t(".time_remaining") %></strong>
+        <span id="timer"
+        data-time-left="<%= @remaining_time %>"
+        data-total-duration="<%= @test.duration %>"></span>
+      </p>
+    <% end %>
+  </div>
+
+  <%= form_with model: [@lesson, @test_result], 
+                url: user_lesson_user_test_path(@lesson, @test_result),
+                method: :patch,
+                local: true,
+                id: "test-form",
+                class: "test-form" do |f| %>
+    
+    <% @questions.each_with_index do |question, index| %>
+      <div class="question-block">
+        <div class="question-header">
+          <strong><%= t(".question", number: index + 1) %></strong>
+          <span class="question-type-badge">
+            <%= question.single_choice? ? t(".single_choice") : t(".multiple_choice") %>
+          </span>
+          <div class="question-content">
+            <%= simple_format(question.content) %>
+          </div>
+        </div>
+        
+        <div class="answers-container">
+          <% saved_answers = @test_result.user_answers[question.id.to_s] %>
+          <% selected_ids = saved_answers&.[]("selected_answer_ids") || [] %>
+          
+          <% if question.single_choice? %>
+            <!-- Single Choice Question -->
+            <% question.answers.each do |answer| %>
+              <div class="answer-option">
+                <%= radio_button_tag "answers[#{question.id}]", 
+                                    answer.id, 
+                                    selected_ids.include?(answer.id),
+                                    id: "answer_#{answer.id}",
+                                    class: "hidden-radio" %>
+                <label for="answer_<%= answer.id %>" class="custom-radio-label">
+                  <span class="radio-button"></span>
+                  <span class="radio-text"><%= simple_format(answer.content) %></span>
+                </label>
+              </div>
+            <% end %>
+          <% else %>
+            <!-- Multiple Choice Question -->
+            <% question.answers.each do |answer| %>
+              <div class="answer-option">
+                <%= check_box_tag "answers[#{question.id}][]", 
+                                 answer.id, 
+                                 selected_ids.include?(answer.id),
+                                 id: "answer_#{answer.id}", 
+                                 class: "answer-input" %>
+                <%= label_tag "answer_#{answer.id}", simple_format(answer.content), class: "answer-label" %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="submit-section">
+      <div class="auto-save-info">
+        <small>
+          <i class="fas fa-info-circle"></i>
+          <%= t(".auto_submit_info") %>
+        </small>
+      </div>
+      
+      <div class="action-buttons">
+        <%= button_tag t(".save_draft"), name: "save_draft", value: "true", 
+               class: "btn btn-outline-primary" %>
+                    
+          <%= f.submit t(".submit_test"), 
+                      class: "btn btn-success"%>
+      </div>
+    </div>
+  <% end %>
+</div>
+

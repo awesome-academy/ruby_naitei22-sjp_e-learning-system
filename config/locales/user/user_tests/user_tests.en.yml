@@ -1,0 +1,33 @@
+en:
+  user:
+    user_tests:
+      edit:
+        title: "Take Test for Lesson %{number}: %{title}"
+        attempt: "Attempt: "
+        attempt_left: " attempts left"
+        remaining_attempts: "Remaining Attempts: "
+        time_remaining: "Time Remaining: "
+        question: "Question %{number}: "
+        single_choice: "Single Choice"
+        multiple_choice: "Multiple Choice"
+        auto_submit_info: "The test will be automatically submitted when the time runs out."
+        save_draft: "Save Draft"
+        save_draft_confirm: "Are you sure you want to save your draft?"
+        submit_test: "Submit Test"
+        submit_confirm: "Are you sure you want to submit the test?"
+      error:
+        lesson_not_found: "Lesson not found."
+        test_not_found: "Test not found."
+        max_attempts_reached: "You have reached the maximum number of attempts for this test."
+        test_result_not_found: "Test result not found."
+        unauthorized_access: "You do not have permission to access this test result."
+        test_expired: "The test has expired. The answers have been submitted automatically."
+        multiple_answers_selected: "You cannot select multiple answers for a single-choice question."
+        validation_failed: "There were errors in your submission: %{errors}"
+        rollback_failed: "An error occurred while processing your test. Please try again."
+        unexpected: "An unexpected error occurred. Please try again later."
+        test_auto_submitted: "The test has been submitted automatically."
+      draft_saved: "Draft answers saved successfully."
+      continuing_ongoing_test: "You have an ongoing test. Please continue it."
+      passed: "Congratulations! You passed the test with %{score}/%{total}. The lesson is now completed and the vocabulary has been added to your collection."
+      failed: "You scored %{score}/%{total}. You need to have at least 80% correct answers to pass. You have %{remaining_attempts} attempts left."

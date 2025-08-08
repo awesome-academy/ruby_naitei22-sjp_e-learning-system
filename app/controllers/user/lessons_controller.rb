@@ -15,6 +15,7 @@ class User::LessonsController < User::ApplicationController
     @lesson_test = Component.find_by(lesson: @lesson, component_type: "test")
     @number_of_attempts = TestResult.where(user: current_user,
                                            component: @lesson_test).count
+    @attempt_left = @lesson_test.test.max_attempts - @number_of_attempts
   end
 
   # GET user/courses/:course_id/lessons/:id/study

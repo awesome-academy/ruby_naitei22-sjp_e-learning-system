@@ -1,0 +1,33 @@
+vi:
+  user:
+    user_tests:
+      edit:
+        title: "Làm bài kiểm tra cho Bài học %{number}: %{title}"
+        attempt: "Lần thử: "
+        attempt_left: " lần thử còn lại"
+        remaining_attempts: "Số lần thử còn lại: "
+        time_remaining: "Thời gian còn lại: "
+        question: "Câu hỏi %{number}: "
+        single_choice: "Lựa chọn đơn"
+        multiple_choice: "Lựa chọn nhiều"
+        auto_submit_info: "Bài kiểm tra sẽ tự động nộp khi hết thời gian."
+        save_draft: "Lưu bài làm"
+        save_draft_confirm: "Bạn có chắc chắn muốn lưu bài làm không?"
+        submit_test: "Nộp bài kiểm tra"
+        submit_confirm: "Bạn có chắc chắn muốn nộp bài kiểm tra không?"
+      error:
+        lesson_not_found: "Không tìm thấy bài học."
+        test_not_found: "Không tìm thấy bài kiểm tra."
+        max_attempts_reached: "Bạn đã đạt đến số lần thử tối đa cho bài kiểm tra này."
+        test_result_not_found: "Không tìm thấy kết quả bài kiểm tra."
+        unauthorized_access: "Bạn không có quyền truy cập vào kết quả bài kiểm tra này."
+        test_expired: "Bài kiểm tra đã hết hạn. Các câu trả lời đã được nộp tự động."
+        multiple_answers_selected: "Bạn không thể chọn nhiều câu trả lời cho một câu hỏi đơn lựa chọn."
+        validation_failed: "Có lỗi trong việc gửi bài kiểm tra: %{errors}"
+        rollback_failed: "Đã xảy ra lỗi khi xử lý bài kiểm tra. Vui lòng thử lại."
+        unexpected: "Đã xảy ra lỗi không mong đợi. Vui lòng thử lại sau."
+        test_auto_submitted: "Bài kiểm tra bạn làm dở đã được nộp tự động."
+      draft_saved: "Đã lưu bài làm thành công."
+      continuing_ongoing_test: "Bạn có một bài kiểm tra đang diễn ra. Vui lòng tiếp tục nó."
+      passed: "Chúc mừng! Bạn đã vượt qua bài kiểm tra với %{score}/%{total}. Bài học đã được hoàn thành và từ vựng đã được thêm vào bộ sưu tập của bạn."
+      failed: "Bạn đã đạt %{score}/%{total} điểm. Bạn cần ít nhất 80% câu trả lời đúng để vượt qua. Bạn còn %{remaining_attempts} lần thử nữa."
