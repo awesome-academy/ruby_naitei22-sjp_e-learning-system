@@ -5,6 +5,7 @@ google_logo_url: "https://img.icons8.com/color/48/000000/google-logo.png"
 lucide_js_path: "https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"
 
 page_6: 6
+page_20: 20
 
 user:
   max_name_length: 50

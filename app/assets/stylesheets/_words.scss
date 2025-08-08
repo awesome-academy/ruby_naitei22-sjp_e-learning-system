@@ -150,6 +150,25 @@
   text-transform: capitalize;
 }
 
+.vocabulary-table {
+  background-color: #fff;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.table-container {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.words-count {
+  margin-top: 75px;
+}
+
+.word-badge {
+  font-size: 11px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .arrow-button {

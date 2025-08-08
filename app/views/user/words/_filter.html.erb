@@ -1,0 +1,80 @@
+<h4 class="filter-header">
+  <i class="fa fa-filter"></i> <%= t(".filter_header") %>
+</h4>
+
+<%= form_tag request.path, method: :get, class: "filter-form", id: "filterForm" do %>
+  <!-- Search Filter -->
+  <div class="filter-section">
+    <%= label_tag :search, t(".search_label"), class: "control-label" %>
+    <div class="input-group">
+      <%= text_field_tag :search, params[:search],
+          placeholder: t(".search_placeholder"),
+          class: "form-control",
+          id: "searchInput" %>
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </span>
+    </div>
+
+    <%= select_tag :search_field,
+      options_for_select([
+        [t(".search_fields.all"), ""],
+        [t(".search_fields.content"), "content"],
+        [t(".search_fields.meaning"), "meaning"]
+      ], params[:search_field]),
+      class: "form-control mt-2" %>
+  </div>
+
+  <!-- Status Filter -->
+  <div class="filter-section">
+    <%= label_tag :status, t(".status"), class: "control-label" %>
+    <%= select_tag :status,
+        options_for_select([
+          [t(".status_all"), ""],
+          [t(".status_learned"), "learned"],
+          [t(".status_not_learned"), "not_learned"]
+        ], params[:status]),
+        class: "form-control" %>
+  </div>
+
+  <!-- Word Type Filter -->
+  <div class="filter-section">
+    <%= label_tag :word_type, t(".word_type_label"), class: "control-label" %>
+    <%= select_tag :word_type,
+        options_for_select([
+          [t(".all_word_types"), ""],
+          [t(".word_types.noun"), "noun"],
+          [t(".word_types.pronoun"), "pronoun"],
+          [t(".word_types.verb"), "verb"],
+          [t(".word_types.adjective"), "adjective"],
+          [t(".word_types.adverb"), "adverb"],
+          [t(".word_types.preposition"), "preposition"],
+          [t(".word_types.conjunction"), "conjunction"],
+          [t(".word_types.interjection"), "interjection"],
+          [t(".word_types.other"), "other"]
+        ], params[:word_type].to_s),
+        { class: "form-control" } %>
+  </div>
+
+  <!-- Sort Options -->
+  <div class="filter-section">
+    <%= label_tag :sort, t(".sort_label"), class: "control-label" %>
+    <%= select_tag :sort,
+        options_for_select([
+          [t(".sort_options.alphabetical"), "alphabetical"],
+          [t(".sort_options.alphabetical_desc"), "alphabetical_desc"],
+          [t(".sort_options.newest"), "newest"],
+          [t(".sort_options.oldest"), "oldest"],
+          [t(".sort_options.word_type"), "word_type"]
+        ], params[:sort]),
+        { class: "form-control" } %>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="form-group">
+    <%= submit_tag t(".apply"), class: "btn btn-primary btn-block" %>
+    <%= link_to t(".reset"), request.path, class: "btn btn-default btn-block" %>
+  </div>
+<% end %>
