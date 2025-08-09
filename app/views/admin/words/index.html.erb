@@ -1,6 +1,11 @@
 <div class="list-page-container">
   <header class="page-header">
     <h1><%= t(".title") %></h1>
+    <% content_for :breadcrumbs do %>
+      <%= link_to content_tag(:i, "", class: "fas fa-home"), root_path %>
+      <span class="breadcrumb-separator"> > </span>
+      <span><%= t(".title") %></span>
+    <% end %>
     <div class="header-actions">
       <%= form_with url: admin_words_path, method: :get, class: "search-form", data: { turbo_frame: "words-table" } do %>
         <%= text_field_tag :query, params[:query], placeholder: t(".search_placeholder"), class: "search-input" %>

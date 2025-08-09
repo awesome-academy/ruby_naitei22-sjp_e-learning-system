@@ -1,4 +1,11 @@
 <div class="page-container">
+  <% content_for :breadcrumbs do %>
+    <%= link_to content_tag(:i, "", class: "fas fa-home"), root_path %>
+    <span class="breadcrumb-separator"> > </span>
+    <%= link_to t("admin.words.index.title"), admin_words_path %>
+    <span class="breadcrumb-separator"> > </span>
+    <span><%= t(".title") %></span>
+  <% end %>
   <div class="content-wrapper">
     <div class="form-card">
       <div class="form-card-body">
