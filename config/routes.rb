@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /en|vi/ do
+    root to: "guest#homepage"
+
     get "guest/homepage"
     get "signup", to: "users#new"
     post "signup", to: "users#create"
@@ -27,13 +29,19 @@ Rails.application.routes.draw do
         end
       end
     end
-    root to: "guest#homepage"
 
     namespace :admin do
       resources :words
       resources :courses
       resources :lessons
       resources :tests
+
+      resources :tests do
+        resources :questions, except: %i(show index) do
+          resources :answers, only: %i(new create destroy)
+        end
+        get 'questions/new', on: :member, to: 'questions#new', as: 'new_question'
+      end
     end
   end
 end

@@ -6,8 +6,8 @@ vi:
         word_type: "Loại từ"
         meaning: "Ý nghĩa"
     submit:
-      create: "Tạo từ"
-      update: "Cập nhật từ"
+      create: "Tạo mới"
+      update: "Cập nhật"
   admin:
     words:
       create:

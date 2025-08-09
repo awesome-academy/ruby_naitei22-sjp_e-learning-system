@@ -1,0 +1,34 @@
+en:
+  admin:
+    questions:
+      not_found: "Question not found."
+      create:
+        success: "Question was successfully created."
+        failure: "Failed to create question."
+      update:
+        success: "Question was successfully updated."
+        failure: "Failed to update question."
+      destroy:
+        success: "Question was successfully deleted."
+        failure: "Failed to delete question."
+      form:
+        question_label: "Question"
+        add_answer_button: "Add answer"
+        cancel_button: "Cancel"
+      new:
+        title: "Create New Question"
+      edit:
+        title: "Edit Question"
+      errors:
+        count:
+          one: "1 error occurred:"
+          other: "%{count} errors occurred:"
+        explanation: "error occurred:"
+      answer_fields:
+        content_placeholder: "Answer content"
+      question_fields:
+        question_type_single: "Single choice"
+        question_type_multiple: "Multiple choice"
+        question_content_label: "Question content"
+        question_content_placeholder: "Enter question content..."
+        add_answer_button: "Add answer"

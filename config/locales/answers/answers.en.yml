@@ -1,0 +1,12 @@
+en:
+  admin:
+    answers:
+      test_not_found: "Test not found."
+      question_not_found: "Question not found."
+      answer_not_found: "Answer not found."
+      create:
+        success: "Answer was successfully created."
+        failure: "Failed to create answer."
+      destroy:
+        success: "Answer was successfully deleted."
+        failure: "Failed to delete answer."

@@ -22,7 +22,13 @@ course:
   min_duration: 1
   max_duration: 365
   date_format: "%d/%m/%Y"
-  
+
+question:
+  answer_defaults_number: 4
+  question_types:
+    single_choice: "single_choice"
+    multiple_choice: "multiple_choice"
+
 development:
   <<: *defaults
 

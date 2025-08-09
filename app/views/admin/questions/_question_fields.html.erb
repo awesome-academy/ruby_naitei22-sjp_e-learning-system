@@ -1,0 +1,39 @@
+<div class="question-card" data-nested-form-target="target">
+  <%= f.hidden_field :_destroy %>
+
+  <div class="question-header">
+    <div class="form-group question-type-group">
+      <%= f.select :question_type, options_for_select([[t(".question_type_single"), "single_choice"], [t(".question_type_multiple"), "multiple_choice"]], f.object.question_type), {}, class: "form-select", data: { action: "change->nested-form#toggleAnswerType" } %>
+    </div>
+    <div class="question-actions">
+      <button type="button" class="remove-button" data-action="nested-form#remove" data-target="target">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :content, t(".question_content_label"), class: "form-label" %>
+    <%= f.text_area :content, class: "form-control", placeholder: t(".question_content_placeholder") %>
+  </div>
+
+  <div class="answers-container" data-controller="nested-form" data-nested-form-answers-outlet>
+    <div data-nested-form-target="links">
+      <div class="answers-template-wrapper" data-nested-form-target="template">
+        <%= f.fields_for :answers, Answer.new, child_index: "NEW_ANSWER_RECORD" do |answer_form| %>
+          <%= render "answer_fields", f: answer_form %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="existing-answers">
+      <%= f.fields_for :answers do |answer_form| %>
+        <%= render "answer_fields", f: answer_form %>
+      <% end %>
+    </div>
+
+    <button type="button" class="add-option-button" data-action="nested-form#addAnswer" data-target="links">
+      <%= t(".add_answer_button") %>
+    </button>
+  </div>
+</div>

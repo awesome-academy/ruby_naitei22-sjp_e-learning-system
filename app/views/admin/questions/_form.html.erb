@@ -1,0 +1,37 @@
+<%= form_with(model: [@test, @question], url: @question.new_record? ? admin_test_questions_path(@test) : admin_test_question_path(@test, @question), local: true, class: "question-form-main", data: { controller: "question-form", question_form_question_type_value: @question.question_type }) do |form| %>
+
+  <div class="question-header-row">
+    <div class="question-title-group">
+      <%= form.label :content, class: "question-title-label" %>
+      <%= form.text_area :content, class: "question-content-input" %>
+    </div>
+
+    <div class="question-type-dropdown">
+      <%= form.label :question_type %>
+      <%= form.select :question_type, Question.question_types.keys.map { |k| [I18n.t("activerecord.enums.question.question_type.#{k}"), k] }, {},
+                     class: "question-type-select",
+                     data: { "question-form-target": "questionType", action: "change->question-form#questionTypeChanged" } %>
+    </div>
+  </div>
+
+  <div class="answers-container" data-question-form-target="answers">
+    <%= form.fields_for :answers do |answer_form| %>
+      <%= render "answer_fields", form: answer_form, new_record: false %>
+    <% end %>
+  </div>
+
+  <div class="answer-actions">
+    <button type="button" class="add-option-btn" data-action="click->question-form#addAnswer">
+      <span class="icon">+</span> <%= t(".add_answer_button") %>
+    </button>
+  </div>
+
+  <div class="form-submit-container">
+    <%= form.submit class: "submit-btn" %>
+    <%= link_to t(".cancel_button"), admin_test_path(@test), class: "cancel-btn" %>
+  </div>
+
+  <template data-question-form-target="answerTemplate">
+    <%= render "answer_template", test: @test, question: @question %>
+  </template>
+<% end %>

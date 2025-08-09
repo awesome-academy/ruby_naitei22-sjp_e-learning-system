@@ -1,0 +1,5 @@
+<%= form_with(model: [@test, @question], url: "#") do |form| %>
+  <%= form.fields_for :answers, Answer.new, child_index: "NEW_RECORD" do |answer_form| %>
+    <%= render "answer_fields", form: answer_form, new_record: true %>
+  <% end %>
+<% end %>
