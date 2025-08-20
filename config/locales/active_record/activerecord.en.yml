@@ -13,6 +13,7 @@ en:
         password: "Password"
         password_confirmation: "Password confirmation"
         gender: "Gender"
+        current_password: "Current password"
       question:
         content: "Question"
         question_type: "Question Type"
