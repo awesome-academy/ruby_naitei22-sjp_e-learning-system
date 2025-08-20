@@ -1,5 +1,5 @@
 class User::CoursesController < User::ApplicationController
-  skip_before_action :logged_in_user, only: %i(index)
+  skip_before_action :authenticate_user!, only: %i(index)
   skip_before_action :ensure_user_role, only: %i(index)
   before_action :redirect_guest_status_param, only: %i(index)
   before_action :set_course, only: %i(show enroll start)
