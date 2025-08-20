@@ -10,6 +10,8 @@
 
 .byebug_history
 
+coverage/
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
