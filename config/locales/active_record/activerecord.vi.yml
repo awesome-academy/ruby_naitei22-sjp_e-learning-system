@@ -21,6 +21,9 @@ vi:
         duration: "Thời gian"
         max_attempts: "Số lần làm tối đa"
         description: "Mô tả"
+    errors:
+      messages:
+        record_invalid: "Bản ghi không hợp lệ"
 
     enums:
       user:

@@ -119,5 +119,5 @@ vi:
     cannot_edit_another_user: "Bạn không thể chỉnh sửa hồ sơ của người dùng khác."
 
   words:
-    error:
+    errors:
       title: "Lỗi"

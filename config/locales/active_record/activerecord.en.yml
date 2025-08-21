@@ -21,6 +21,9 @@ en:
         duration: "Duration"
         max_attempts: "Max attempts"
         description: "Description"
+    errors:
+      messages:
+        record_invalid: "Invalid record"
 
     enums:
       user:

@@ -119,5 +119,5 @@ en:
     cannot_edit_another_user: "You cannot edit another user's profile."
 
   words:
-    error:
+    errors:
       title: "Error"

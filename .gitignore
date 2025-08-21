@@ -39,3 +39,34 @@ config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
 node_modules/
+
+# Ignore SimpleCov coverage reports
+/coverage/
+
+# Ignore SimpleCov config file (if used)
+.simplecov
+
+# Ignore Bundler artifacts
+/vendor/bundle/
+/.bundle/
+
+# Ignore Rails specific files
+/tmp/
+/log/*.log
+/public/assets
+/public/packs
+/public/uploads
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore development and environment files
+.env
+.env.*
+.ruby-version
+.idea/
+
+# Ignore Mac OS X files
+.DS_Store
+
+# Ignore RSpec history file
+.rspec
