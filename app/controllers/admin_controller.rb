@@ -1,4 +1,10 @@
 class AdminController < ApplicationController
-  before_action :logged_in_user
-  before_action :admin_user
+  before_action :authenticate_user!
+  before_action :authenticate_admin
+
+  private
+
+  def authenticate_admin
+    redirect_to(root_path) unless current_user&.admin?
+  end
 end
