@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
+  devise_for :users, only: :omniauth_callbacks, controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
   scope "(:locale)", locale: /en|vi/ do
     root to: "guest#homepage"
 
     get "guest/homepage"
-    devise_for :users, path: '', path_names: {
-      sign_in: 'login',
-      sign_out: 'logout',
-      sign_up: 'signup'
+    devise_for :users, skip: :omniauth_callbacks, path: "", path_names: {
+      sign_in: "login",
+      sign_out: "logout",
+      sign_up: "signup"
     }
-
-    get "/auth/:provider/callback", to: "sessions#omniauth"
-    get "/auth/failure", to: redirect("/")
-
+    
     resources :users, only: %i(show edit update)
 
     namespace :user do

@@ -45,6 +45,8 @@ vi:
       updated: Cập nhật tài khoản thành công.
       updated_but_not_signed_in: Tài khoản của bạn đã được cập nhật thành công, nhưng do mật khẩu đã thay đổi, bạn cần đăng nhập lại.
     sessions:
+      log_in: "Đăng nhập"
+      continue_with_google: "Tiếp tục với Google"
       signed_in: Đăng nhập thành công.
       signed_out: Đăng xuất thành công.
       already_signed_out: "Đăng xuất thành công."
