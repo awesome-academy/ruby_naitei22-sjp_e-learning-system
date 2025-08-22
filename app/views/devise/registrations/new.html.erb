@@ -1,11 +1,11 @@
-<% provide :title, t(".title") %>
+<% provide :title, t("users.new.title") %>
 <% content_for :breadcrumbs do %>
   <%= link_to content_tag(:i, "", class: "fas fa-home"), root_path %>
   <span class="breadcrumb-separator"> > </span>
-  <%= link_to t(".title"), signup_path %>
+  <%= link_to t("users.new.title"), new_user_registration_path %>
 <% end %>
-<% provide :button_text, t(".create_my_account") %>
-<h1><%= t(".title") %></h1>
+<% provide :button_text, t("users.new.create_my_account") %>
+<h1><%= t("users.new.title") %></h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= render "form" %>

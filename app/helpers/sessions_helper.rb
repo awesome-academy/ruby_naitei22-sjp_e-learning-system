@@ -66,13 +66,6 @@ module SessionsHelper
     redirect_to root_path
   end
 
-  def logged_out_user
-    return unless logged_in?
-
-    flash[:info] = t("flash.already_logged_in")
-    redirect_to root_url
-  end
-
   private
 
   def find_user_from_session

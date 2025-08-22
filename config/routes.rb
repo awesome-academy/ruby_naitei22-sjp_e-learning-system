@@ -3,8 +3,12 @@ Rails.application.routes.draw do
     root to: "guest#homepage"
 
     get "guest/homepage"
-    get "signup", to: "users#new"
-    post "signup", to: "users#create"
+
+    devise_for :users, path: "", path_names: {
+      sign_in: "login",
+      sign_out: "logout",
+      sign_up: "signup"
+    }
 
     get "/login", to: "sessions#new"
     post "/login", to: "sessions#create"
