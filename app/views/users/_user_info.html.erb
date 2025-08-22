@@ -33,7 +33,7 @@
               <span class="detail-value"><%= l(user.updated_at, format: :long) %></span>
             </div>
             <div class="detail-row">
-              <%= link_to edit_user_path(user) do %>
+              <%= link_to edit_user_registration_path do %>
                 <i class="bi bi-pencil-square"></i> <%= t("users.show.edit") %>
               <% end %>
             </div>

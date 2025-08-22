@@ -1,5 +1,5 @@
 class User::CoursesController < User::ApplicationController
-  skip_before_action :logged_in_user, only: %i(index)
+  skip_before_action :authenticate_user!, only: %i(index)
   skip_before_action :ensure_user_role, only: %i(index)
   before_action :redirect_guest_status_param, only: %i(index)
   before_action :set_course, only: %i(show enroll start)
@@ -22,7 +22,7 @@ class User::CoursesController < User::ApplicationController
     @user_course = UserCourse.new(
       user_id: current_user.id,
       course_id: @course.id,
-      enrolment_status: 0
+      enrolment_status: :pending
     )
 
     if @user_course.save
@@ -47,7 +47,7 @@ class User::CoursesController < User::ApplicationController
   private
 
   def redirect_guest_status_param
-    return unless params[:status].present? && current_user.nil?
+    return unless params[:status].present? && !user_signed_in?
 
     flash[:alert] = t("flash.please_log_in")
     redirect_to user_courses_path
@@ -85,7 +85,7 @@ class User::CoursesController < User::ApplicationController
   end
 
   def set_progress_data
-    return set_empty_progress unless current_user
+    return set_empty_progress unless user_signed_in?
 
     lesson_ids = @lessons.pluck(:id)
     @user_lessons = current_user.user_lessons.where(lesson_id: lesson_ids)
@@ -114,7 +114,7 @@ class User::CoursesController < User::ApplicationController
 
   def update_course_progress
     start_date = Date.current
-    end_date   = start_date + @course.duration.days
+    end_date start_date + @course.duration.days
 
     @user_course.update(
       enrolment_status: :in_progress,
@@ -124,7 +124,7 @@ class User::CoursesController < User::ApplicationController
   end
 
   def filtered_courses
-    status = current_user ? params[:status]&.to_sym : nil
+    status = user_signed_in? ? params[:status]&.to_sym : nil
 
     Course.recent
           .with_users
@@ -135,7 +135,7 @@ class User::CoursesController < User::ApplicationController
   end
 
   def build_user_courses_map
-    return {} unless current_user
+    return {} unless user_signed_in?
 
     UserCourse.where(user_id: current_user.id, course_id: @courses.map(&:id))
               .index_by(&:course_id)
