@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  devise :database_authenticatable,
+  devise :database_authenticatable, :registerable,
          :rememberable, :validatable
   has_many :created_courses, class_name: Course.name,
 foreign_key: "created_by_id", dependent: :nullify
