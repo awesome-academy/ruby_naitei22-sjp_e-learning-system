@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   end
 
   def correct_user
-    return if current_user? @user
+    return if current_user == @user
 
     flash[:error] = t(".cannot_edit")
     redirect_to root_url
