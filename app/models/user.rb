@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
-         :rememberable, :validatable,
+         :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: %i(google_oauth2)
   has_many :created_courses, class_name: Course.name,
 foreign_key: "created_by_id", dependent: :nullify
