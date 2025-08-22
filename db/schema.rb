@@ -164,15 +164,19 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_13_102207) do
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", limit: 100
     t.string "email", limit: 100, null: false
-    t.string "password_digest", null: false
     t.date "birthday"
     t.integer "gender"
     t.integer "role", default: 0, null: false
-    t.string "remember_digest"
     t.string "provider"
     t.string "uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "remember_digest"
+    t.string "password_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
@@ -185,7 +189,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_08_13_102207) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "admin_course_managers", "courses"
   add_foreign_key "admin_course_managers", "users"

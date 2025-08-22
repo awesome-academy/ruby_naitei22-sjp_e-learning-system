@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  devise :database_authenticatable,
+         :rememberable, :validatable
   has_many :created_courses, class_name: Course.name,
 foreign_key: "created_by_id", dependent: :nullify
   has_many :created_lessons, class_name: Lesson.name,
@@ -15,8 +17,6 @@ foreign_key: "created_by_id", dependent: :nullify
   has_one_attached :avatar
 
   attr_accessor :remember_token
-
-  has_secure_password
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

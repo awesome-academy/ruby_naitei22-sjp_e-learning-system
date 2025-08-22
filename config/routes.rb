@@ -3,12 +3,11 @@ Rails.application.routes.draw do
     root to: "guest#homepage"
 
     get "guest/homepage"
+
+    devise_for :users, only: %i(sessions)
+
     get "signup", to: "users#new"
     post "signup", to: "users#create"
-
-    get "/login", to: "sessions#new"
-    post "/login", to: "sessions#create"
-    delete "/logout", to: "sessions#destroy"
 
     get "/auth/:provider/callback", to: "sessions#omniauth"
     get "/auth/failure", to: redirect("/")

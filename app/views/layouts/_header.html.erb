@@ -3,7 +3,7 @@
     <%= link_to t("navbar.brand_name"), root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
+        <% if user_signed_in? %>
           <% if current_user.admin? %>
             <!-- Admin Navigation -->
             <li><%= link_to t("navbar.manage_course"), admin_courses_path %></li>
@@ -26,7 +26,7 @@
               <li><%= link_to t("navbar.profile"), user_path(current_user) %></li>
               <li><%= link_to t("navbar.settings"), edit_user_path(current_user) %></li>
               <li class="divider"></li>
-              <li><%= link_to t("navbar.log_out"), logout_path, data: {"turbo-method": :delete} %></li>
+              <li><%= link_to t("navbar.log_out"), destroy_user_session_path, data: {"turbo-method": :delete} %></li>
             </ul>
           </li>
 
@@ -35,7 +35,7 @@
           <li><%= link_to t("navbar.home"), root_path %></li>
           <li><%= link_to t("navbar.courses"), user_courses_path %></li>
           <li><%= link_to t("navbar.sign_up"), signup_path %></li>
-          <li><%= link_to t("navbar.log_in"), login_path %></li>
+          <li><%= link_to t("navbar.log_in"), new_user_session_path %></li>
         <% end %>
 
         <!-- Language Switch -->

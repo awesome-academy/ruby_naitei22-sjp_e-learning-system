@@ -89,7 +89,7 @@ class Admin::CoursesController < ApplicationController
   end
 
   def authenticate_admin
-    return if logged_in? && current_user&.admin?
+    return if user_signed_in? && current_user&.admin?
 
     flash[:danger] = t(".authenticate_admin.not_authorized")
     redirect_to root_path
