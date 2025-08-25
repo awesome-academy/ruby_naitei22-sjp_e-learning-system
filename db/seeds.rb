@@ -48,8 +48,8 @@ puts "Creating users..."
 admin_user = User.create!(
   name: "Admin",
   email: "admin@gmail.com",
-  password: "12345",
-  password_confirmation: "12345",
+  password: "123456",
+  password_confirmation: "123456",
   birthday: Date.new(1990, 1, 1),
   gender: "other",
   role: "admin",
@@ -69,8 +69,8 @@ users = [admin_user]
   user = create_record(User, {
     name: name,
     email: email,
-    password: "12345",
-    password_confirmation: "12345",
+    password: "123456",
+    password_confirmation: "123456",
     birthday: birthday,
     gender: gender,
     role: "user",
