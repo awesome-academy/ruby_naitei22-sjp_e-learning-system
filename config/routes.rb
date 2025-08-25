@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get "guest/homepage"
 
     devise_for :users,
-      only: %i(sessions registrations omniauth_callbacks),
+      only: %i(sessions registrations omniauth_callbacks confirmations),
       controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
     get "/auth/:provider/callback", to: "sessions#omniauth"
