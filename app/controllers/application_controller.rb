@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
 
   before_action :set_locale
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def set_locale
     allowed = I18n.available_locales.map(&:to_s)
@@ -42,5 +43,11 @@ class ApplicationController < ActionController::Base
 
     flash[:danger] = t(".error.not_authenticated")
     redirect_to root_path
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i(name birthday gender))
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: %i(name birthday gender))
   end
 end

@@ -7,10 +7,10 @@
   <div class="container hero-content">
     <h1><%= t(".hero_title") %></h1>
     <p><%= t(".hero_subtitle") %></p>
-    <% if logged_in? %>
+    <% if user_signed_in? %>
       <%= link_to t(".hero_cta"), user_courses_path, class: "btn btn-primary btn-lg" %>
     <% else %>
-      <%= link_to t(".hero_cta"), signup_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to t(".hero_cta"), new_user_registration_path, class: "btn btn-primary btn-lg" %>
     <% end %>
   </div>
 </section>

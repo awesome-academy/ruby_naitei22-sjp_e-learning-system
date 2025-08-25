@@ -3,7 +3,7 @@
     <%= link_to t("navbar.brand_name"), root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
+        <% if user_signed_in? %>
           <% if current_user.admin? %>
             <!-- Admin Navigation -->
             <li><%= link_to t("navbar.manage_course"), admin_courses_path %></li>
@@ -34,7 +34,7 @@
           <!-- Guest Navigation -->
           <li><%= link_to t("navbar.home"), root_path %></li>
           <li><%= link_to t("navbar.courses"), user_courses_path %></li>
-          <li><%= link_to t("navbar.sign_up"), signup_path %></li>
+          <li><%= link_to t("navbar.sign_up"), new_user_registration_path %></li>
           <li><%= link_to t("navbar.log_in"), login_path %></li>
         <% end %>
 
