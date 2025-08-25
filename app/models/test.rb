@@ -27,4 +27,8 @@ class Test < ApplicationRecord
 
     where("name LIKE ?", "%#{sanitize_sql_like(keyword)}%")
   }
+
+  def self.ransackable_attributes _auth_object = nil
+    %w(name created_at updated_at)
+  end
 end

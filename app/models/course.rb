@@ -19,6 +19,9 @@ class Course < ApplicationRecord
   ].freeze
   COURSE_PRELOAD = [:creator, :lessons, :admins].freeze
   COURSE_INCLUDES = [:lessons, :admins, :users].freeze
+  ACTIVE_ENROLMENT_STATUSES = UserCourse.enrolment_statuses.values_at(
+    :approved, :in_progress, :completed
+  )
 
   has_many :lessons, dependent: :destroy
   has_many :user_courses, dependent: :destroy
@@ -60,6 +63,17 @@ class Course < ApplicationRecord
     end
   end)
 
+  scope :by_learner_count, lambda {|range|
+    joins_sql = sanitize_sql_array(
+      ["LEFT JOIN user_courses ON user_courses.course_id = courses.id
+       AND user_courses.enrolment_status IN (?)",
+       ACTIVE_ENROLMENT_STATUSES]
+    )
+    joins(joins_sql)
+      .group("courses.id")
+      .having(build_having_condition(range))
+  }
+
   validates :title, presence: true,
 length: {minimum: MINIMUM_TITLE_LENGTH, maximum: MAX_TITLE_LENGTH},
 uniqueness: true
@@ -80,6 +94,34 @@ numericality: {greater_than: MINIMUM_DURATION}
                                                       course_lessons.pluck(:id))
     percentage = completed.to_f / total * 100
     percentage.round
+  end
+
+  def self.ransackable_attributes _auth_object = nil
+    %w(title description duration created_at)
+  end
+
+  def self.ransackable_associations _auth_object = nil
+    %w(user_courses users)
+  end
+
+  def self.ransackable_scopes _auth_object = nil
+    [:by_learner_count]
+  end
+
+  def self.build_having_condition range
+    count_sql = "COUNT(user_courses.id)"
+    case range
+    when "1-10"
+      "#{count_sql} BETWEEN 1 AND 10"
+    when "11-20"
+      "#{count_sql} BETWEEN 11 AND 20"
+    when "21-30"
+      "#{count_sql} BETWEEN 21 AND 30"
+    when "31+"
+      "#{count_sql} >= 31"
+    else
+      "1=1"
+    end
   end
 
   private

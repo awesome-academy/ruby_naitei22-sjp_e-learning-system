@@ -2,28 +2,30 @@
   <i class="fa fa-filter"></i> <%= t(".filter_header") %>
 </h4>
 
-<%= form_tag request.path, method: :get, class: "filter-form", id: "filterForm" do %>
-  <!-- Search Filter -->
+<%= search_form_for @q, url: user_words_path, method: :get, class: "filter-form" do |f| %>
+
   <div class="filter-section">
-    <%= label_tag :search, t(".search_label"), class: "control-label" %>
+    <%= f.label :keyword, t(".search_label"), class: "control-label" %>
     <div class="input-group">
-      <%= text_field_tag :search, params[:search],
-          placeholder: t(".search_placeholder"),
-          class: "form-control",
-          id: "searchInput" %>
+      <%= text_field_tag :keyword,
+            params[:keyword],
+            placeholder: t(".search_placeholder"),
+            class: "form-control" %>
       <span class="input-group-btn">
         <button class="btn btn-primary" type="submit">
           <i class="fa fa-search"></i>
         </button>
       </span>
     </div>
-
-    <%= select_tag :search_field,
-      options_for_select(search_field_options, params[:search_field]&.to_sym),
-      class: "form-control mt-2" %>
   </div>
 
-  <!-- Status Filter -->
+  <div class="filter-section">
+    <%= f.label :search_field, t(".search_field_label"), class: "control-label" %>
+    <%= select_tag :search_field,
+          options_for_select(search_field_options, params[:search_field]&.to_sym),
+          class: "form-control" %>
+  </div>
+
   <div class="filter-section">
     <%= label_tag :status, t(".status"), class: "control-label" %>
     <%= select_tag :status,
@@ -31,25 +33,25 @@
       class: "form-control" %>
   </div>
 
-  <!-- Word Type Filter -->
   <div class="filter-section">
-    <%= label_tag :word_type, t(".word_type_label"), class: "control-label" %>
-    <%= select_tag :word_type,
-      options_for_select(word_type_options, params[:word_type]&.to_sym),
-      class: "form-control" %>
+    <%= f.label :word_type_eq, t(".word_type_label"), class: "control-label" %>
+    <%= f.select :word_type_eq,
+        options_for_select(word_type_options, params.dig(:q, :word_type_eq)),
+        {},
+        { class: "form-control" } %>
   </div>
 
-  <!-- Sort Options -->
+
   <div class="filter-section">
-    <%= label_tag :sort, t(".sort_label"), class: "control-label" %>
-    <%= select_tag :sort,
-      options_for_select(sort_options, params[:sort]&.to_sym),
-      class: "form-control" %>
+    <%= f.label :s, t(".sort_label"), class: "control-label" %>
+    <%= f.select :s,
+        options_for_select(filter_sort_options, params.dig(:q, :s)),
+        { include_blank: t(".sort_options.default_sort") },
+        { class: "form-control" } %>
   </div>
 
-  <!-- Action Buttons -->
   <div class="form-group">
-    <%= submit_tag t(".apply"), class: "btn btn-primary btn-block" %>
+    <%= f.submit t(".apply"), class: "btn btn-primary btn-block" %>
     <%= link_to t(".reset"), request.path, class: "btn btn-default btn-block" %>
   </div>
 <% end %>

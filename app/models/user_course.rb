@@ -64,4 +64,12 @@ class UserCourse < ApplicationRecord
   scope :invalid_for_reject, ->{with_status_in(INVALID_REJECT_STATUSES)}
 
   validates :reason, presence: true, if: ->{rejected?}
+
+  def self.ransackable_attributes _auth_object = nil
+    %w(user_id course_id enrolment_status created_at end_date start_date)
+  end
+
+  def self.ransackable_associations _auth_object = nil
+    %w(course user)
+  end
 end

@@ -13,15 +13,15 @@
     </div>
 
     <div class="search-section mb-4">
-      <%= form_with url: admin_courses_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
-        <%= form.text_field :search,
-                            value: params[:search],
-                            placeholder: t(".search_placeholder"),
-                            class: "form-control search-input" %>
-
-        <% if params[:search].present? %>
+      <%# Sử dụng search_form_for của Ransack %>
+      <%= search_form_for @q, url: admin_courses_path, class: "d-flex gap-2" do |f| %>
+        <%= f.search_field :title_cont,
+            placeholder: t(".search_placeholder"),
+            class: "form-control search-input" %>
+        <%# <%= f.submit t(".search"), class: "btn btn-primary" %>
+        <% if params[:q].present? && params[:q][:title_cont].present? %>
           <%= link_to t(".clear_search"), admin_courses_path,
-                      class: "btn btn-outline-secondary" %>
+              class: "btn btn-outline-secondary" %>
         <% end %>
       <% end %>
     </div>

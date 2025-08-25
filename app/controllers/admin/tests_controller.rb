@@ -4,8 +4,10 @@ class Admin::TestsController < Admin::ApplicationController
 
   # GET /admin/tests
   def index
+    @q = Test.ransack(params[:q])
+    @q.sorts = "created_at desc" if @q.sorts.empty?
     @pagy, @tests = pagy(
-      Test.by_name(params[:search]).recent,
+      @q.result(distinct: true),
       items: Settings.test.page_number
     )
   end

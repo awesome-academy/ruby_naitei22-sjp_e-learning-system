@@ -5,6 +5,7 @@ vi:
         filter_header: "Bộ lọc"
         search_label: "Tìm kiếm từ"
         search_placeholder: "Nhập từ cần tìm..."
+        search_field_label: "Tìm theo"
         search_fields:
           all: "Tìm theo từ và nghĩa"
           content: "Tìm theo từ"
@@ -19,6 +20,7 @@ vi:
           newest: "Mới nhất"
           oldest: "Cũ nhất"
           word_type: "Loại từ"
+          default_sort: "Sắp xếp mặc định"
         word_types:
           noun: "Danh từ"
           pronoun: "Đại từ"

@@ -14,6 +14,12 @@ vi:
         not_enrolled: "Chưa đăng ký"
         apply: "Áp dụng"
         reset: "Đặt lại"
+        learner_count: "Số người học"
+        rangeone: "1 - 10 người học"
+        rangeeleven: "11 - 20 người học"
+        rangetwentyfirst: "21 - 30 người học"
+        rangeoverthirtyone: "Trên 30 người học"
+        all_counts: "Tất cả"
       index:
         title: "Danh sách khóa học"
         thumbnail: "Hình thu nhỏ khóa học"

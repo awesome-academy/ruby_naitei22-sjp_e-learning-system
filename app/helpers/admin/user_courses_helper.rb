@@ -22,14 +22,12 @@ module Admin::UserCoursesHelper
   end
 
   def status_filter_options
-    [
-      [t("admin.user_courses.index.status_options.all"), ""],
-      [t("admin.user_courses.index.status_options.pending"), :pending],
-      [t("admin.user_courses.index.status_options.approved"), :approved],
-      [t("admin.user_courses.index.status_options.rejected"), :rejected],
-      [t("admin.user_courses.index.status_options.in_progress"), :in_progress],
-      [t("admin.user_courses.index.status_options.completed"), :completed]
-    ]
+    UserCourse.enrolment_statuses.map do |key, value|
+      [
+        I18n.t("admin.user_courses.index.status_options.#{key}",
+               default: key.humanize), value
+      ]
+    end
   end
 
   def course_filter_options
