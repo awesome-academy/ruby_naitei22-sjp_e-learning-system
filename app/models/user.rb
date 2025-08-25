@@ -2,7 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :rememberable, :validatable
+         :rememberable, :validatable,
+         :omniauthable, omniauth_providers: %i(google_oauth2)
   has_many :created_courses, class_name: Course.name,
 foreign_key: "created_by_id", dependent: :nullify
   has_many :created_lessons, class_name: Lesson.name,
@@ -75,20 +76,13 @@ foreign_key: "created_by_id", dependent: :nullify
     update_column :remember_digest, nil
   end
 
-  def self.find_or_create_from_auth_hash auth
-    user = find_by(email: auth.info.email)
-
-    if user
-      user.update(provider: auth.provider, uid: auth.uid) unless user.provider
-      user
-    else
-      create(
-        name: auth.info.name,
-        email: auth.info.email,
-        provider: auth.provider,
-        uid: auth.uid,
-        password: SecureRandom.hex(10)
-      )
+  def self.from_omniauth auth
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.name
+      user.provider = auth.provider
+      user.uid = auth.uid
     end
   end
 
