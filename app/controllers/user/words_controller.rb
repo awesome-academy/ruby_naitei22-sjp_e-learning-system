@@ -1,5 +1,6 @@
-class User::WordsController < ApplicationController
-  before_action :user_signed_in?, :ensure_user_role, only: %i(index)
+class User::WordsController < User::ApplicationController
+  before_action :authenticate_user!
+  load_and_authorize_resource Word.name, only: %i(index)
 
   def index
     @learned_ids = Word.learned_word_ids_for(current_user)

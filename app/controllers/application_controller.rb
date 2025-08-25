@@ -29,17 +29,30 @@ class ApplicationController < ActionController::Base
     respond_with(*args, options, &)
   end
 
-  private
-  def ensure_user_role
-    return if current_user&.user?
-
-    flash[:danger] = t(".error.not_authenticated")
+  rescue_from CanCan::AccessDenied do
+    flash[:danger] = t("flash.not_authorized")
     redirect_to root_path
   end
+
+  private
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: PERMIT_PARAM)
     devise_parameter_sanitizer.permit(:account_update,
                                       keys: PERMIT_PARAM)
+  end
+
+  def authorize_user
+    authorize! :access, :user_area
+  rescue CanCan::AccessDenied
+    flash[:danger] = t("flash.not_authorized")
+    redirect_to root_path
+  end
+
+  def authorize_admin
+    authorize! :access, :admin_dashboard
+  rescue CanCan::AccessDenied
+    flash[:danger] = t("flash.not_authorized")
+    redirect_to root_path
   end
 end
