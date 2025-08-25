@@ -1,6 +1,5 @@
-class Admin::CoursesController < ApplicationController
+class Admin::CoursesController < Admin::ApplicationController
   include Pagy::Backend
-  before_action :authenticate_admin
   before_action :set_course, only: %i(show edit update destroy)
 
   # GET /admin/courses
@@ -86,12 +85,5 @@ class Admin::CoursesController < ApplicationController
     params.require(:course)
           .permit(Course::COURSE_PERMITTED)
           .merge(creator: current_user)
-  end
-
-  def authenticate_admin
-    return if user_signed_in? && current_user&.admin?
-
-    flash[:danger] = t(".authenticate_admin.not_authorized")
-    redirect_to root_path
   end
 end

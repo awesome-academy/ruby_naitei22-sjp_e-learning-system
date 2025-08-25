@@ -1,4 +1,4 @@
-class Admin::UserCoursesController < AdminController
+class Admin::UserCoursesController < Admin::ApplicationController
   before_action :set_user_course,
                 only: %i(approve reject_form reject reject_detail profile)
   before_action :ensure_selection_present, :set_selected_user_courses,
