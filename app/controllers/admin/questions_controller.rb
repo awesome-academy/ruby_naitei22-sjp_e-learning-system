@@ -1,6 +1,6 @@
 class Admin::QuestionsController < AdminController
-  before_action :set_test
-  before_action :set_question, only: %i(edit update destroy)
+  load_and_authorize_resource :test
+  load_and_authorize_resource :question, through: :test
 
   QUESTION_PERMITTED_PARAMS = [
     :content,
@@ -16,8 +16,6 @@ class Admin::QuestionsController < AdminController
 
   # POST /admin/tests/:test_id/questions
   def create
-    @question = @test.questions.build(question_params)
-
     if @question.save
       handle_success(t(".success"))
     else
@@ -60,22 +58,6 @@ class Admin::QuestionsController < AdminController
   def handle_failure action
     flash.now[:danger] = t(".failure")
     render action, status: :unprocessable_entity
-  end
-
-  def set_test
-    @test = Test.find_by(id: params[:test_id])
-    return if @test
-
-    flash[:danger] = t(".test_not_found")
-    redirect_to admin_tests_path
-  end
-
-  def set_question
-    @question = @test.questions.find_by(id: params[:id])
-    return if @question
-
-    flash[:danger] = t(".question_not_found")
-    redirect_to admin_test_path(@test)
   end
 
   def question_params
