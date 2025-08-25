@@ -1,6 +1,6 @@
-class Admin::LessonsController < ApplicationController
-  before_action :set_course
-  before_action :set_lesson, only: %i(show edit update destroy)
+class Admin::LessonsController < AdminController
+  load_and_authorize_resource :course
+  load_and_authorize_resource :lesson, through: :course
 
   LESSON_PERMITTED = [
     :title,
@@ -12,7 +12,6 @@ class Admin::LessonsController < ApplicationController
 
   # GET /admin/courses/:course_id/lessons/new
   def new
-    @lesson = @course.lessons.build
     @selected_word_ids = []
     @selected_test_ids = []
     @selected_paragraphs = []
@@ -117,22 +116,6 @@ class Admin::LessonsController < ApplicationController
     lesson.position = @course.lessons.count + 1
     lesson.created_by_id = current_user.id
     lesson
-  end
-
-  def set_lesson
-    @lesson = @course.lessons.find_by(id: params[:id])
-    return if @lesson
-
-    flash[:danger] = t(".lesson_not_found")
-    redirect_to admin_course_path(@course)
-  end
-
-  def set_course
-    @course = Course.find_by(id: params[:course_id])
-    return if @course
-
-    flash[:danger] = t(".course_not_found")
-    redirect_to admin_courses_path
   end
 
   def lesson_params
