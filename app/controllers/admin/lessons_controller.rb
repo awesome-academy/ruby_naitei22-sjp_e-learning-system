@@ -1,4 +1,4 @@
-class Admin::LessonsController < ApplicationController
+class Admin::LessonsController < Admin::ApplicationController
   before_action :set_course
   before_action :set_lesson, only: %i(show edit update destroy)
 

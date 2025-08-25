@@ -1,4 +1,4 @@
-class User::UserTestsController < ApplicationController
+class User::UserTestsController < User::ApplicationController
   before_action :set_lesson, :set_test_component,
                 :handle_ongoing_test, :handle_expired_test,
                 :check_attempts_limit,

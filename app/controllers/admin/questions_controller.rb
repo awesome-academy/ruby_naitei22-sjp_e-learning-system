@@ -1,4 +1,4 @@
-class Admin::QuestionsController < AdminController
+class Admin::QuestionsController < Admin::ApplicationController
   before_action :set_test
   before_action :set_question, only: %i(edit update destroy)
 

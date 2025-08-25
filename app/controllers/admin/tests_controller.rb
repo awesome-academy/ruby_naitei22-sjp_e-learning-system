@@ -1,4 +1,4 @@
-class Admin::TestsController < AdminController
+class Admin::TestsController < Admin::ApplicationController
   include Pagy::Backend
   before_action :set_test, only: %i(show update destroy edit)
 

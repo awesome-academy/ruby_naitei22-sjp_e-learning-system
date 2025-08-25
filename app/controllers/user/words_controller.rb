@@ -1,6 +1,4 @@
-class User::WordsController < ApplicationController
-  before_action :authenticate_user!, :ensure_user_role, only: %i(index)
-
+class User::WordsController < User::ApplicationController
   def index
     @learned_ids = Word.learned_word_ids_for(current_user)
     @pagy, @words = pagy(filtered_words, limit: Settings.page_20)
