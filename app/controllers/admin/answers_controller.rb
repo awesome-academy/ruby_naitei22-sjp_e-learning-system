@@ -1,5 +1,5 @@
 # app/controllers/admin/answers_controller.rb
-class Admin::AnswersController < AdminController
+class Admin::AnswersController < Admin::ApplicationController
   before_action :set_test
   before_action :set_question
   before_action :set_answer, only: %i(destroy)

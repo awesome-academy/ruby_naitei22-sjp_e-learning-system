@@ -1,13 +1,13 @@
-class User::UserTestsController < ApplicationController
-  before_action :set_lesson, :set_test_component,
-                :handle_ongoing_test, :handle_expired_test,
-                :check_attempts_limit,
-                only: %i(create)
-  before_action :set_test_result, :check_authorization, only: %i(edit update)
+class User::UserTestsController < User::ApplicationController
+  load_resource :lesson, only: %i(create)
+  before_action :set_test_result, only: %i(edit update)
+  before_action :set_test_component, :handle_ongoing_test,
+                :handle_expired_test, :check_attempts_limit, only: %i(create)
   before_action :check_test_expired, only: %i(update)
 
   # POST /user/lessons/:lesson_id/user_tests
   def create
+    authorize! :create_user_test, @lesson
     @current_attempt = @attempt_count + 1
 
     @test_result = TestResult.create!(
@@ -116,14 +116,6 @@ class User::UserTestsController < ApplicationController
     handle_record_invalid(e)
   end
 
-  def set_lesson
-    @lesson = Lesson.find_by(id: params[:lesson_id])
-    return if @lesson
-
-    flash[:danger] = t(".error.lesson_not_found")
-    redirect_to user_courses_path
-  end
-
   def set_test_component
     @course = @lesson.course
     @test_component = @lesson.components
@@ -155,13 +147,6 @@ class User::UserTestsController < ApplicationController
 
     flash[:danger] = t(".error.test_result_not_found")
     redirect_to user_course_lesson_path(@lesson.course, @lesson)
-  end
-
-  def check_authorization
-    return if @test_result.user == current_user
-
-    flash[:danger] = t(".error.unauthorized_access")
-    redirect_to root_path
   end
 
   def handle_ongoing_test

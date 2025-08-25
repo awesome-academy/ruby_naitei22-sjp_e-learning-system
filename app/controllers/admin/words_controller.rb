@@ -1,4 +1,4 @@
-class Admin::WordsController < AdminController
+class Admin::WordsController < Admin::ApplicationController
   before_action :set_word, only: %i(edit update destroy)
 
   WORD_PERMITTED = %i(content meaning word_type).freeze

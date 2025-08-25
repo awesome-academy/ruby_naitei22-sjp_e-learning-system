@@ -1,13 +1,12 @@
 class User::CoursesController < User::ApplicationController
-  skip_before_action :authenticate_user!, only: %i(index)
-  skip_before_action :ensure_user_role, only: %i(index)
+  load_and_authorize_resource except: %i(index)
   before_action :redirect_guest_status_param, only: %i(index)
-  before_action :set_course, only: %i(show enroll start)
   before_action :check_enrolled, only: %i(enroll)
   before_action :set_user_course, only: %i(show start)
   before_action :set_lessons, :set_progress_data, only: %i(show)
   before_action :ensure_enrolment_approved, only: %i(start)
-
+  skip_before_action :authorize_user!, only: %i(index)
+  skip_before_action :authenticate_user!, only: %i(index)
   # GET user/courses
   def index
     @pagy, @courses = pagy(filtered_courses, limit: Settings.page_6)
@@ -58,14 +57,6 @@ class User::CoursesController < User::ApplicationController
 
     flash[:warning] = t(".already_enrolled")
     redirect_to user_courses_path, status: :see_other
-  end
-
-  def set_course
-    @course = Course.find_by(id: params[:id])
-    return if @course
-
-    flash[:danger] = t(".error.course_not_found")
-    redirect_to root_path
   end
 
   def set_user_course
