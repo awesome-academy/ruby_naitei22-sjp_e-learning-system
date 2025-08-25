@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
     get "guest/homepage"
 
-    devise_for :users, only: %i(sessions)
+    devise_for :users, only: %i(sessions registrations)
 
     get "signup", to: "users#new"
     post "signup", to: "users#create"

@@ -45,5 +45,6 @@ vi:
       title: "Chỉnh sửa người dùng"
       save_changes: "Lưu thay đổi"
       change_gravatar: "thay đổi"
+      update_my_account: "Cập nhật"
     update:
       updated: "Hồ sơ đã được cập nhật thành công."

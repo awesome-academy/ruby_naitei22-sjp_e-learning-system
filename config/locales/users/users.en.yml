@@ -45,5 +45,6 @@ en:
       title: "Edit user"
       save_changes: "Save changes"
       change_gravatar: "change"
+      update_my_account: "Update my account"
     update:
       updated: "Profile was successfully updated."
