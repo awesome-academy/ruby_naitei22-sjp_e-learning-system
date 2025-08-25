@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
+
   scope "(:locale)", locale: /en|vi/ do
     root to: "guest#homepage"
 
     get "guest/homepage"
 
-    devise_for :users, only: %i(sessions registrations)
-
-    get "signup", to: "users#new"
-    post "signup", to: "users#create"
+    devise_for :users,
+      only: %i(sessions registrations omniauth_callbacks),
+      controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
     get "/auth/:provider/callback", to: "sessions#omniauth"
     get "/auth/failure", to: redirect("/")
