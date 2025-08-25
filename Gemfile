@@ -69,6 +69,8 @@ gem "image_processing", "1.12.2"
 
 gem "devise"
 
+gem "cancancan"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html
   gem "debug", platforms: %i(mri mingw x64_mingw)

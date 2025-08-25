@@ -1,6 +1,6 @@
-class Admin::LessonsController < ApplicationController
-  before_action :set_course
-  before_action :set_lesson, only: %i(show edit update destroy)
+class Admin::LessonsController < AdminController
+  load_and_authorize_resource :course
+  load_and_authorize_resource :lesson, through: :course, except: [:create]
 
   LESSON_PERMITTED = [
     :title,
@@ -119,22 +119,6 @@ class Admin::LessonsController < ApplicationController
     lesson
   end
 
-  def set_lesson
-    @lesson = @course.lessons.find_by(id: params[:id])
-    return if @lesson
-
-    flash[:danger] = t(".lesson_not_found")
-    redirect_to admin_course_path(@course)
-  end
-
-  def set_course
-    @course = Course.find_by(id: params[:course_id])
-    return if @course
-
-    flash[:danger] = t(".course_not_found")
-    redirect_to admin_courses_path
-  end
-
   def lesson_params
     params.require(:lesson).permit(LESSON_PERMITTED)
   end
@@ -182,5 +166,9 @@ class Admin::LessonsController < ApplicationController
       end
       attrs
     end
+  end
+
+  def authorize_lesson
+    authorize! params[:action].to_sym, @lesson
   end
 end
