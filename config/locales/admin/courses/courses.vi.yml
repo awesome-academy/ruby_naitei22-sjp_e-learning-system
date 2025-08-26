@@ -37,6 +37,7 @@ vi:
         update_course: "Cập Nhật Khóa Học"
         save_change: "Lưu Thay Đổi"
       show:
+        course_not_found: "Không tìm thấy khóa học. Vui lòng kiểm tra ID và thử lại."
         manage_lesson: "Quản Lý Bài Học"
         edit_course: "Sửa Khóa Học"
         back_to_list: "Quay Lại Danh Sách Khóa Học"

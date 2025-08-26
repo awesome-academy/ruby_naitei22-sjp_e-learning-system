@@ -5,6 +5,6 @@ FactoryBot.define do
 
     duration { Faker::Number.between(from: 10, to: 100) }
 
-    association :creator, factory: :user
+    association :creator, factory: :admin_user
   end
 end
