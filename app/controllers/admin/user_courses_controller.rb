@@ -1,10 +1,10 @@
 class Admin::UserCoursesController < AdminController
-  before_action :set_user_course,
-                only: %i(approve reject_form reject reject_detail profile)
+  load_and_authorize_resource
   before_action :ensure_selection_present, :set_selected_user_courses,
                 only: %i(approve_selected reject_selected)
   before_action :set_approvable_and_invalid_courses, only: %i(approve_selected)
   before_action :set_rejectable_and_invalid_courses, only: %i(reject_selected)
+
   respond_to :html, :json
 
   FILTER_KEYS = %i(course status registered_from expiration_date page).freeze
@@ -96,14 +96,6 @@ class Admin::UserCoursesController < AdminController
   end
 
   private
-
-  def set_user_course
-    @user_course = UserCourse.find_by(id: params[:id])
-    return if @user_course
-
-    flash[:danger] = t(".user_course_not_found")
-    redirect_to admin_user_courses_path
-  end
 
   def ensure_selection_present
     return if params[:user_course_ids].present?

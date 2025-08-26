@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  check_authorization unless: :devise_controller?
+
   def set_locale
     allowed = I18n.available_locales.map(&:to_s)
 
@@ -28,12 +30,24 @@ class ApplicationController < ActionController::Base
     respond_with(*args, options, &)
   end
 
+  rescue_from CanCan::AccessDenied do
+    flash[:danger] = t("flash.not_authorized")
+    redirect_to root_path
+  end
+
   private
 
-  def ensure_user_role
-    return if current_user&.user?
+  def authorize_user_area
+    authorize! :access, :user_area
+  rescue CanCan::AccessDenied
+    flash[:danger] = t("flash.not_authorized")
+    redirect_to root_path
+  end
 
-    flash[:danger] = t(".error.not_authenticated")
+  def authorize_admin_area
+    authorize! :access, :admin_dashboard
+  rescue CanCan::AccessDenied
+    flash[:danger] = t("flash.not_authorized")
     redirect_to root_path
   end
 

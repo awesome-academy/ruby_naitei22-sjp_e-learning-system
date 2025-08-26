@@ -42,6 +42,8 @@ gem "omniauth-rails_csrf_protection"
 
 gem "devise"
 
+gem "cancancan"
+
 gem "dotenv-rails"
 
 gem "ransack"

@@ -56,3 +56,5 @@ en:
           lesson: "Lesson %{number}: %{title}"
           completed: "Completed"
           incomplete: "Incomplete"
+      error:
+          not_authenticated: "You need to log in with user account."
