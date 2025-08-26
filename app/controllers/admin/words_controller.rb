@@ -1,5 +1,5 @@
 class Admin::WordsController < AdminController
-  before_action :set_word, only: %i(edit update destroy)
+  load_and_authorize_resource
 
   WORD_PERMITTED = %i(content meaning word_type).freeze
 
@@ -12,14 +12,10 @@ class Admin::WordsController < AdminController
   end
 
   # GET /admin/words/new
-  def new
-    @word = Word.new
-  end
+  def new; end
 
   # POST /admin/words
   def create
-    @word = Word.new(word_params)
-
     if @word.save
       flash[:success] = t(".success")
       redirect_to admin_words_path
@@ -28,6 +24,7 @@ class Admin::WordsController < AdminController
     end
   end
 
+  # GET /admin/words/:id/edit
   def edit; end
 
   # PATCH/PUT /admin/words/:id
@@ -52,14 +49,6 @@ class Admin::WordsController < AdminController
   end
 
   private
-
-  def set_word
-    @word = Word.find_by(id: params[:id])
-    return if @word
-
-    flash[:danger] = t("not_found")
-    redirect_to admin_words_path
-  end
 
   def word_params
     params.require(:word).permit(WORD_PERMITTED)
