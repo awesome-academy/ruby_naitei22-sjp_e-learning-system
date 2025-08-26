@@ -37,6 +37,7 @@ en:
         update_course: "Update Course"
         save_change: "Save Changes"
       show:
+        course_not_found: "Course not found. Please check the ID and try again."
         manage_lesson: "Manage Lessons"
         edit_course: "Edit Course"
         back_to_list: "Back to Course List"

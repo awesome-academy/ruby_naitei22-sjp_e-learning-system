@@ -13,7 +13,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
 
 SimpleCov.start "rails" do
   add_filter do | source_file|
-    !source_file.filename.include?("app/models/word.rb")
+    !source_file.filename.include?("app/models/lesson.rb")
   end
 
   add_group "Models", "app/models"
