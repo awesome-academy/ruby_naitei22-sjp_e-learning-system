@@ -1,7 +1,7 @@
 class User::LessonsController < User::ApplicationController
-  before_action :set_course, only: %i(show test_history)
-  before_action :set_lesson,
-                only: %i(show study test_history)
+  load_and_authorize_resource :course, class: Course.name
+  load_and_authorize_resource :lesson, through: :course, shallow: true
+
   before_action :set_user_lesson, only: %i(test_history)
   before_action :set_test_component, only: %i(test_history)
   before_action :check_word_empty, only: %i(study)
@@ -12,7 +12,7 @@ class User::LessonsController < User::ApplicationController
                          .paragraph
                          .order(:index_in_lesson)
     @user_lesson = UserLesson.find_by(user: current_user, lesson: @lesson)
-    @lesson_test = Component.find_by(lesson: @lesson, component_type: "test")
+    @lesson_test = @lesson.components.find_by(component_type: :test)
     @number_of_attempts = TestResult.where(user: current_user,
                                            component: @lesson_test).count
     @attempt_left = @lesson_test.test.max_attempts - @number_of_attempts
@@ -46,22 +46,6 @@ class User::LessonsController < User::ApplicationController
   end
 
   private
-
-  def set_course
-    @course = Course.find_by(id: params[:course_id])
-    return if @course
-
-    flash[:danger] = t(".error.course_not_found")
-    redirect_to root_path
-  end
-
-  def set_lesson
-    @lesson = Lesson.find_by(id: params[:id])
-    return if @lesson
-
-    flash[:danger] = t(".error.lesson_not_found")
-    redirect_to user_course_path(@course)
-  end
 
   def check_word_empty
     return if @lesson.components.word.exists?

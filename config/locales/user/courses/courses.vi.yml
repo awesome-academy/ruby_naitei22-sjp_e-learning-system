@@ -56,3 +56,5 @@ vi:
           lesson: "Bài học %{number}: %{title}"
           completed: "Đã hoàn thành"
           incomplete: "Chưa hoàn thành"
+      error:
+          not_authenticated: "Bạn cần đăng nhập bằng tài khoản người dùng."

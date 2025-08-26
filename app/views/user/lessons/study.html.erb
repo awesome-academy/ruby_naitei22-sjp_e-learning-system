@@ -20,7 +20,7 @@
     <!-- Navigation Arrow Left -->
     <div class="nav-arrow nav-left">
       <% if @has_previous %>
-        <%= link_to study_user_course_lesson_path(@lesson, word_index: @current_position - 1),
+        <%= link_to study_user_course_lesson_path(@course, @lesson, word_index: @current_position - 1),
                     class: "arrow-button active" do %>
           <i data-lucide="step-back"></i>
         <% end %>
@@ -62,7 +62,7 @@
     <!-- Navigation Arrow Right -->
     <div class="nav-arrow nav-right">
       <% if @has_next %>
-        <%= link_to study_user_course_lesson_path(@lesson, word_index: @current_position + 1),
+        <%= link_to study_user_course_lesson_path(@course, @lesson, word_index: @current_position + 1),
                     class: "arrow-button active" do %>
           <i data-lucide="step-forward"></i>
         <% end %>

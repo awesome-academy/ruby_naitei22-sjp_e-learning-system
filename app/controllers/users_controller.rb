@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!,
-                :load_user,
-                :correct_user, only: %i(show edit update)
+  before_action :authenticate_user!
+  load_and_authorize_resource only: %i(show edit update)
 
   # GET /users/:id
   def show
@@ -28,21 +27,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def load_user
-    @user = User.find_by id: params[:id]
-    return if @user
-
-    flash[:warning] = t(".not_found")
-    redirect_to root_path
-  end
-
-  def correct_user
-    return if current_user == @user
-
-    flash[:error] = t(".cannot_edit")
-    redirect_to root_url
-  end
 
   def user_params
     params.require(:user).permit(User::USER_PERMITTED)
