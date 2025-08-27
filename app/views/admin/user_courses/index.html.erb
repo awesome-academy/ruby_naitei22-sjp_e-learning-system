@@ -13,37 +13,57 @@
 
     <!-- Filter Section -->
     <div class="filter-section mb-4">
-      <%= form_with url: admin_user_courses_path, method: :get, local: true, class: "filter-form" do |form| %>
+      <%= search_form_for @ransack_query, url: admin_user_courses_path, local: true, class: "filter-form" do |f| %>
         <div class="filter-row">
           <div class="filter-group">
-            <%= form.label :course, t(".filters.course"), class: "filter-label" %>
-            <%= form.select :course, options_for_select(course_filter_options, params[:course]),
-                           {}, { class: "form-select" } %>
+            <%= f.label :user_name_cont, t(".filters.user_name"), class: "filter-label" %>
+            <%= f.search_field :user_name_cont,
+                              placeholder: t(".search_user"),
+                              class: "form-control",
+                              value: params.dig(:q, :user_name_cont) %>
           </div>
 
           <div class="filter-group">
-            <%= form.label :status, t(".filters.status"), class: "filter-label" %>
-            <%= form.select :status, options_for_select(status_filter_options, params[:status]),
-                           {}, { class: "form-select" } %>
+            <%= f.label :course_title_cont, t(".filters.course"), class: "filter-label" %>
+            <%= f.search_field :course_title_cont,
+                              placeholder: t(".search_course"),
+                              class: "form-control",
+                              value: params.dig(:q, :course_title_cont) %>
+          </div>
+
+          <div class="filter-group">
+            <%= f.label :enrolment_status_eq, t(".filters.status"), class: "filter-label" %>
+            <% selected_status = params.dig(:q, :enrolment_status_eq).presence %>
+
+            <% status_options = [
+              [t("admin.user_courses.index.status_options.all"), nil]
+            ] + UserCourse.enrolment_statuses.map { |k, v| [k.humanize, v] } %>
+
+            <%= f.select :enrolment_status_eq,
+                        options_for_select(status_options, selected_status),
+                        {},
+                        class: "form-select" %>
           </div>
         </div>
 
         <div class="filter-row">
           <div class="filter-group">
-            <%= form.label :registered_from, t(".filters.registered_from"), class: "filter-label" %>
-            <%= form.date_field :registered_from, value: params[:registered_from],
-                               placeholder: t(".filters.placeholders.registered_from"), class: "form-control" %>
+            <%= f.label :created_at_gteq, t(".filters.registered_from"), class: "filter-label" %>
+            <%= f.date_field :created_at_gteq,
+                            class: "form-control",
+                            value: params.dig(:q, :created_at_gteq) %>
           </div>
 
           <div class="filter-group">
-            <%= form.label :expiration_date, t(".filters.expiration_date"), class: "filter-label" %>
-            <%= form.date_field :expiration_date, value: params[:expiration_date],
-                               placeholder: t(".filters.placeholders.expiration_date"), class: "form-control" %>
+            <%= f.label :expiration_date_lteq, t(".filters.expiration_date"), class: "filter-label" %>
+            <%= f.date_field :expiration_date_lteq,
+                            class: "form-control",
+                            value: params.dig(:q, :expiration_date_lteq) %>
           </div>
         </div>
 
         <div class="filter-actions">
-          <%= form.submit t(".filters.filter_button"), class: "btn btn-primary" %>
+          <%= f.submit t(".filters.filter_button"), class: "btn btn-primary" %>
           <%= link_to t(".filters.clear_button"), admin_user_courses_path, class: "btn btn-outline-secondary" %>
         </div>
       <% end %>
@@ -59,10 +79,10 @@
                 <th class="checkbox-column">
                   <input type="checkbox" id="select_all" class="form-check-input">
                 </th>
-                <th><%= t(".table.headers.name") %></th>
-                <th><%= t(".table.headers.course") %></th>
-                <th><%= t(".table.headers.status") %></th>
-                <th><%= t(".table.headers.register_on") %></th>
+                <th><%= sort_link(@ransack_query, :user_name, t(".table.headers.name")) %></th>
+                <th><%= sort_link(@ransack_query, :course_title, t(".table.headers.course")) %></th>
+                <th><%= sort_link(@ransack_query, :enrolment_status, t(".table.headers.status")) %></th>
+                <th><%= sort_link(@ransack_query, :created_at, t(".table.headers.register_on")) %></th>
                 <th><%= t(".table.headers.action") %></th>
               </tr>
             </thead>

@@ -23,7 +23,6 @@ module Admin::UserCoursesHelper
 
   def status_filter_options
     [
-      [t("admin.user_courses.index.status_options.all"), ""],
       [t("admin.user_courses.index.status_options.pending"), :pending],
       [t("admin.user_courses.index.status_options.approved"), :approved],
       [t("admin.user_courses.index.status_options.rejected"), :rejected],

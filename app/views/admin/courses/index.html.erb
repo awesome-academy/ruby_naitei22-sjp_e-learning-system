@@ -8,20 +8,19 @@
       <% content_for :breadcrumbs do %>
         <%= link_to content_tag(:i, "", class: "fas fa-home"), root_path %>
         <span class="breadcrumb-separator"> > </span>
-        <%= link_to t("admin.courses.index.course_list"), admin_courses_path %>
+        <%= link_to t(".course_list"), admin_courses_path %>
       <% end %>
     </div>
 
     <div class="search-section mb-4">
-      <%= form_with url: admin_courses_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
-        <%= form.text_field :search,
-                            value: params[:search],
-                            placeholder: t(".search_placeholder"),
-                            class: "form-control search-input" %>
+      <%= search_form_for @ransack_query, url: admin_courses_path, local: true, class: "search-form" do |f| %>
+        <%= f.search_field :title_cont,
+                          placeholder: t(".search_title"),
+                          class: "form-control",
+                          value: params.dig(:q, :title_cont) %>
 
-        <% if params[:search].present? %>
-          <%= link_to t(".clear_search"), admin_courses_path,
-                      class: "btn btn-outline-secondary" %>
+        <% if params[:q].present? %>
+          <%= link_to t(".clear_search"), admin_courses_path, class: "btn btn-outline-secondary" %>
         <% end %>
       <% end %>
     </div>
@@ -32,9 +31,9 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th><%= t(".course_name") %></th>
+              <th><%= sort_link(@ransack_query, :title, t(".course_name")) %></th>
               <th><%= t(".short_description") %></th>
-              <th><%= t(".created_date") %></th>
+              <th><%= sort_link(@ransack_query, :created_at, t(".created_date")) %></th>
               <th><%= t(".actions") %></th>
             </tr>
           </thead>

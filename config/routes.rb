@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :users,
+    only: %i(omniauth_callbacks),
+    controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
   scope "(:locale)", locale: /en|vi/ do
     root to: "guest#homepage"
 
     get "guest/homepage"
 
-    devise_for :users,
-      only: %i(sessions registrations omniauth_callbacks confirmations),
-      controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+    devise_for :users, skip: %i(omniauth_callbacks),
+      only: %i(sessions registrations confirmations)
 
     get "/auth/:provider/callback", to: "sessions#omniauth"
     get "/auth/failure", to: redirect("/")

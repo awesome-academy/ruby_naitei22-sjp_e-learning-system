@@ -88,6 +88,15 @@ foreign_key: "created_by_id", dependent: :nullify
     end
   end
 
+  def self.ransackable_attributes _auth_object = nil
+    %w(name email role created_at updated_at birthday gender)
+  end
+
+  def self.ransackable_associations _auth_object = nil
+    %w(user_courses created_courses enrolled_courses user_lessons
+managed_courses)
+  end
+
   private
 
   def birthday_within_100_years

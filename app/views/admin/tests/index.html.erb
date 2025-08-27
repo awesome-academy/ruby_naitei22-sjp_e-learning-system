@@ -13,15 +13,40 @@
     </div>
 
     <div class="search-section mb-4">
-      <%= form_with url: admin_tests_path, method: :get, local: true, class: "d-flex gap-2" do |form| %>
-        <%= form.text_field :search,
-                            value: params[:search],
-                            placeholder: t(".search_placeholder"),
-                            class: "form-control search-input" %>
-
-        <% if params[:search].present? %>
-          <%= link_to t(".clear_search"), admin_tests_path,
-                      class: "btn btn-outline-secondary" %>
+      <%= search_form_for @ransack_query, url: admin_tests_path, local: true, class: "search-form" do |f| %>
+        <div class="row g-3">
+          <div class="col-md-3">
+            <%= f.search_field :name_cont,
+                              placeholder: t(".search_test_name"),
+                              class: "form-control",
+                              value: params.dig(:q, :name_cont) %>
+          </div>
+          <div class="col-md-3">
+            <%= f.search_field :description_cont,
+                               placeholder: t(".search_description"),
+                               class: "form-control",
+                               value: params.dig(:q, :description_cont) %>
+          </div>
+          <div class="col-md-2">
+            <%= f.number_field :duration_eq,
+                              placeholder: t(".search_duration"),
+                              class: "form-control",
+                              value: params.dig(:q, :duration_eq) %>
+          </div>
+          <div class="col-md-2">
+            <%= f.number_field :max_attempts_eq,
+                              placeholder: t(".search_attempts"),
+                              class: "form-control",
+                              value: params.dig(:q, :max_attempts_eq) %>
+          </div>
+          <div class="col-md-2">
+            <%= f.submit t(".search"), class: "btn btn-primary w-100" %>
+          </div>
+        </div>
+        <% if params[:q].present? %>
+          <div class="mt-2">
+            <%= link_to t(".clear_search"), admin_tests_path, class: "btn btn-outline-secondary btn-sm" %>
+          </div>
         <% end %>
       <% end %>
     </div>
@@ -31,11 +56,11 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th><%= t(".test_name") %></th>
+              <th><%= sort_link(@ransack_query, :name, t(".test_name")) %></th>
               <th><%= t(".description") %></th>
-              <th><%= t(".duration_minutes") %></th>
-              <th><%= t(".max_attempts") %></th>
-              <th><%= t(".created_date") %></th>
+              <th><%= sort_link(@ransack_query, :duration, t(".duration_minutes")) %></th>
+              <th><%= sort_link(@ransack_query, :max_attempts, t(".max_attempts")) %></th>
+              <th><%= sort_link(@ransack_query, :created_at, t(".created_date")) %></th>
               <th><%= t(".actions") %></th>
             </tr>
           </thead>

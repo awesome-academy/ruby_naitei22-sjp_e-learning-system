@@ -1,0 +1,25 @@
+en:
+  admin:
+    courses:
+      index:
+        search_title: "Search by title"
+        search: "Search"
+        created_from: "Created from"
+    user_courses:
+      index:
+        search_user: "Search by user name"
+        search_course: "Search by course title"
+    tests:
+      index:
+        search_test_name: "Search by name"
+        search_description: "Search by description"
+        search_duration: "Duration"
+        search_attempts: "Max attempts"
+        search: "Search"
+    words:
+      index:
+        search_word: "Search by word"
+        search_meaning: "Search by meaning"
+        search: "Search"
+        table_headers:
+          type: "Type"

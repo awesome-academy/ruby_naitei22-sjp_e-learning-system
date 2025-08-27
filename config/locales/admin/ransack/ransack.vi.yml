@@ -1,0 +1,25 @@
+vi:
+  admin:
+    courses:
+      index:
+        search_title: "Tìm kiếm theo tiêu đề"
+        search: "Tìm kiếm"
+        created_from: "Tạo từ ngày"
+    user_courses:
+      index:
+        search_user: "Tìm kiếm theo tên người dùng"
+        search_course: "Tìm kiếm theo tiêu đề khóa học"
+    tests:
+      index:
+        search_test_name: "Tìm kiếm theo tên bài kiểm tra"
+        search_description: "Tìm kiếm theo mô tả"
+        search_duration: "Thời gian"
+        search_attempts: "Số lần thử"
+        search: "Tìm kiếm"
+    words:
+      index:
+        search_word: "Tìm kiếm theo từ"
+        search_meaning: "Tìm kiếm theo nghĩa"
+        search: "Tìm kiếm"
+        table_headers:
+          type: "Loại từ"
