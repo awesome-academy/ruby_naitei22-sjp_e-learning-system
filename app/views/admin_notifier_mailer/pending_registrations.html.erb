@@ -1,0 +1,20 @@
+<h1><%= t("admin_notifier.pending_registrations.greeting", name: @admin.name) %></h1>
+
+<p><%= t("admin_notifier.pending_registrations.intro") %></p>
+
+<% @pending_registrations_by_course.each do |course, registrations| %>
+  <h2><%= t("admin_notifier.pending_registrations.course_header", course_title: course.title) %></h2>
+  <ul>
+    <% registrations.each do |registration| %>
+      <li>
+        <%= t("admin_notifier.pending_registrations.user_info",
+              user_name: registration.user.name,
+              user_email: registration.user.email) %><br>
+        <%= t("admin_notifier.pending_registrations.registered_at",
+              date: l(registration.created_at, format: :long)) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p><%= t("admin_notifier.pending_registrations.call_to_action") %></p>
