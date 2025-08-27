@@ -121,3 +121,7 @@ en:
   words:
     errors:
       title: "Error"
+
+  anonymous:
+    error:
+      not_authenticated: "You are not authorized to access this page!"
