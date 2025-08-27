@@ -16,27 +16,16 @@ module User::WordsHelper
   end
 
   def word_type_options
-    [
-      [t(".all_word_types"), :all],
-      [t(".word_types.noun"), :noun],
-      [t(".word_types.pronoun"), :pronoun],
-      [t(".word_types.verb"), :verb],
-      [t(".word_types.adjective"), :adjective],
-      [t(".word_types.adverb"), :adverb],
-      [t(".word_types.preposition"), :preposition],
-      [t(".word_types.conjunction"), :conjunction],
-      [t(".word_types.interjection"), :interjection],
-      [t(".word_types.other"), :other]
-    ]
+    Word.word_types.keys.map{|k| [t(".word_types.#{k}"), k]}
   end
 
   def sort_options
     [
-      [t(".sort_options.alphabetical"), :alphabetical],
-      [t(".sort_options.alphabetical_desc"), :alphabetical_desc],
-      [t(".sort_options.newest"), :newest],
-      [t(".sort_options.oldest"), :oldest],
-      [t(".sort_options.word_type"), :word_type]
+      [t(".sort_options.alphabetical"), "content asc"],
+      [t(".sort_options.alphabetical_desc"), "content desc"],
+      [t(".sort_options.newest"), "created_at desc"],
+      [t(".sort_options.oldest"), "created_at asc"],
+      [t(".sort_options.word_type"), "word_type_key asc, content asc"]
     ]
   end
 
@@ -47,6 +36,24 @@ module User::WordsHelper
     when :adjective then "label-success"
     when :adverb    then "label-warning"
     else "label-default"
+    end
+  end
+
+  def search_input_value params
+    params.dig(:q, :content_cont) ||
+      params.dig(:q, :meaning_cont) ||
+      params.dig(:q, :content_or_meaning_cont)
+  end
+
+  def selected_search_field params
+    return "all" if params[:q].blank?
+
+    if params[:q].key?(:content_cont)
+      "content"
+    elsif params[:q].key?(:meaning_cont)
+      "meaning"
+    else
+      "all"
     end
   end
 end

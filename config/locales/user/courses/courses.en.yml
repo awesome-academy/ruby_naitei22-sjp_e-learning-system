@@ -12,6 +12,13 @@ en:
         completed: "Completed"
         rejected: "Rejected"
         not_enrolled: "Not Enrolled"
+        enrollee_bucket_label: "Number of Enrollees"
+        all_enrollees: "All"
+        enrollees:
+          1_to_10: "1 to 10"
+          11_to_20: "11 to 20"
+          21_to_30: "21 to 30"
+          31_plus: "31+"
         apply: "Apply"
         reset: "Reset"
       index:

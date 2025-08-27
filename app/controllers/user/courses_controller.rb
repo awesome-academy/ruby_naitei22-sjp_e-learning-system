@@ -116,14 +116,12 @@ class User::CoursesController < User::ApplicationController
   end
 
   def filtered_courses
-    status = current_user ? params[:status]&.to_sym : nil
-
-    Course.recent
-          .with_users
-          .with_attached_thumbnail
-          .search_name(params[:search])
-          .with_status_for_user(status, current_user)
-          .includes(user_courses: :user)
+    base = Course.recent
+                 .with_users
+                 .with_attached_thumbnail
+                 .with_status_for_user(params[:status]&.to_sym, current_user)
+    @q = base.ransack(params[:q])
+    @q.result.includes(user_courses: :user)
   end
 
   def build_user_courses_map

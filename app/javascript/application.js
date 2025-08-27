@@ -8,6 +8,7 @@ import "custom/modal";
 import "custom/admin_user_courses";
 import { createIcons, icons } from "lucide";
 import "./custom/take_test";
+import "./custom/filter_form";
 import "@rails/request.js";
 
 document.addEventListener("turbo:load", () => {

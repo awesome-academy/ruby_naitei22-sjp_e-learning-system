@@ -1,9 +1,11 @@
-<%= form_tag request.path, method: :get, class: "filter-form", id: "filterForm" do %>
+<%= search_form_for @q, url: request.path, method: :get,
+      html: {class: "filter-form", id: "filterForm"} do |f| %>
+
   <!-- Search Filter -->
   <div class="filter-section">
-    <%= label_tag :search, t(".search_label"), class: "control-label" %>
+    <%= f.label :title_cont, t(".search_label"), class: "control-label" %>
     <div class="input-group">
-      <%= text_field_tag :search, params[:search],
+      <%= f.search_field :title_cont,
           placeholder: t(".search_placeholder"),
           class: "form-control",
           id: "searchInput" %>
@@ -20,13 +22,22 @@
     <div class="filter-section">
       <%= label_tag :status, t(".status") %>
       <%= select_tag :status,
-        options_for_select(enrolment_status_options, params[:status]&.to_sym),
-        class: "form-control" %>
+            options_for_select(enrolment_status_options, params[:status]&.to_sym),
+            class: "form-control" %>
     </div>
 
-  <!-- Action Buttons -->
+  <!-- Enrollee Count Filter -->
+    <div class="filter-section">
+      <%= f.label :with_enrollee_bucket, t(".enrollee_bucket_label"), class: "control-label" %>
+      <%= f.select :with_enrollee_bucket,
+            options_for_select(enrollee_bucket_options, params.dig(:q, :with_enrollee_bucket)),
+            { include_blank: t(".all_enrollees") },
+            class: "form-control" %>
+    </div>
+
+    <!-- Action Buttons -->
     <div class="form-group mt-2">
-      <%= submit_tag t(".apply"), class: "btn btn-primary btn-block" %>
+      <%= f.submit t(".apply"), class: "btn btn-primary btn-block" %>
       <%= link_to t(".reset"), request.path, class: "btn btn-default btn-block" %>
     </div>
   <% end %>

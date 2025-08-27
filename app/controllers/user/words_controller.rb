@@ -10,9 +10,8 @@ class User::WordsController < User::ApplicationController
   private
 
   def filtered_words
-    Word.search(params[:search], params[:search_field])
-        .filter_by_type(params[:word_type])
-        .sorted(params[:sort])
-        .filter_by_status(params[:status]&.to_sym, current_user)
+    @q = Word.ransack(params[:q])
+    scoped = @q.result
+    scoped.filter_by_status(params[:status]&.to_sym, current_user)
   end
 end
