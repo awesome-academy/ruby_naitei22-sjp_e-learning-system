@@ -122,3 +122,8 @@ en:
   words:
     error:
       title: "Error"
+
+  tasks:
+    delete_long_time_request:
+      description: "Delete pending enrolment requests older than 30 days"
+      success: "Successfully deleted %{count} pending enrolment requests older than 30 days."

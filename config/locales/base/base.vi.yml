@@ -122,3 +122,8 @@ vi:
   words:
     error:
       title: "Lỗi"
+
+  tasks:
+    delete_long_time_request:
+      description: "Xóa các yêu cầu xin vào khóa (pending) đã quá 30 ngày"
+      success: "Đã xóa %{count} yêu cầu xin vào khóa (pending) quá hạn 30 ngày."
