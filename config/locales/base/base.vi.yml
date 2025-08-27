@@ -121,3 +121,7 @@ vi:
   words:
     errors:
       title: "Lỗi"
+
+  anonymous:
+    error:
+      not_authenticated: "Bạn không có quyền truy cập vào trang này!"
