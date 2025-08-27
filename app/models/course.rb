@@ -1,6 +1,12 @@
 class Course < ApplicationRecord
   IMAGE_DISPLAY_SIZE = [300, 200].freeze
   DESCRIPTION_PREVIEW_LENGTH = 100
+  ENROLLEE_BUCKETS = {
+    "1-10" => (1..10),
+    "11-20" => (11..20),
+    "21-30" => (10..30),
+    "31+" => (31..Float::INFINITY)
+  }.freeze
 
   attr_accessor :course_admin_ids
 
@@ -60,6 +66,27 @@ class Course < ApplicationRecord
     end
   end)
 
+  scope :with_enrollee_bucket, (lambda do |bucket|
+    return all if bucket.blank?
+
+    range = ENROLLEE_BUCKETS[bucket]
+    return all unless range
+
+    subq = UserCourse.approved_statuses
+                     .select("user_courses.course_id, COUNT(*) AS enroll_count")
+                     .group("user_courses.course_id")
+
+    rel = joins("LEFT JOIN (#{subq.to_sql}) uc_counts
+    ON uc_counts.course_id = courses.id")
+
+    if range.end.infinite?
+      rel.where("COALESCE(uc_counts.enroll_count, 0) >= ?", range.begin)
+    else
+      rel.where("COALESCE(uc_counts.enroll_count, 0) BETWEEN ? AND ?",
+                range.begin, range.end)
+    end
+  end)
+
   validates :title, presence: true,
 length: {minimum: MINIMUM_TITLE_LENGTH, maximum: MAX_TITLE_LENGTH},
 uniqueness: true
@@ -80,6 +107,18 @@ numericality: {greater_than: MINIMUM_DURATION}
                                                       course_lessons.pluck(:id))
     percentage = completed.to_f / total * 100
     percentage.round
+  end
+
+  def self.ransackable_attributes _auth = nil
+    %w(title description duration created_at updated_at)
+  end
+
+  def self.ransackable_associations _ = nil
+    %w(approved_user_courses)
+  end
+
+  def self.ransackable_scopes _ = nil
+    %i(with_enrollee_bucket)
   end
 
   private

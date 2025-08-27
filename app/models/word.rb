@@ -39,40 +39,6 @@ class Word < ApplicationRecord
     end
   }
 
-  scope :search, (lambda do |q, field = nil|
-    return all if q.blank?
-
-    case field&.to_sym
-    when :content
-      where("content LIKE ?", "#{q}%")
-    when :meaning
-      where("meaning LIKE ?", "#{q}%")
-    else
-      where("content LIKE ? OR meaning LIKE ?", "#{q}%", "#{q}%")
-    end
-  end)
-
-  scope :filter_by_type, (lambda do |type|
-                            if type.present? && type.to_s != "all"
-                              where(word_type: type)
-                            end
-                          end)
-
-  scope :sorted, (lambda do |sort|
-    case sort
-    when :alphabetical_desc
-      order(content: :desc)
-    when :newest
-      order(created_at: :desc)
-    when :oldest
-      order(created_at: :asc)
-    when :word_type
-      order(:word_type, :content)
-    else
-      order(content: :asc)
-    end
-  end)
-
   def self.learned_word_ids_for user
     UserWord.joins(:component)
             .where(user_id: user.id)
@@ -98,5 +64,17 @@ class Word < ApplicationRecord
   def learned_by? user
     UserWord.joins(:component)
             .exists?(user_id: user.id, components: {word_id: id})
+  end
+
+  def self.ransackable_attributes _auth = nil
+    %w(content meaning word_type_key created_at updated_at)
+  end
+
+  def self.ransackable_associations _auth = nil
+    %w()
+  end
+
+  ransacker :word_type_key, formatter: ->(key){Word.word_types[key]} do |parent|
+    parent.table[:word_type]
   end
 end

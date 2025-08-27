@@ -12,6 +12,13 @@ vi:
         completed: "Đã hoàn thành"
         rejected: "Bị từ chối"
         not_enrolled: "Chưa đăng ký"
+        enrollee_bucket_label: "Số lượng người đăng ký"
+        all_enrollees: "Tất cả"
+        enrollees:
+          1_to_10: "1 đến 10"
+          11_to_20: "11 đến 20"
+          21_to_30: "21 đến 30"
+          31_plus: "31+"
         apply: "Áp dụng"
         reset: "Đặt lại"
       index:
