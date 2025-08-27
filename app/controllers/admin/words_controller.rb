@@ -5,9 +5,8 @@ class Admin::WordsController < AdminController
 
   # GET /admin/words
   def index
-    @words = Word.by_content(params[:query])
-                 .by_time(params[:filter_time])
-                 .recent
+    @ransack_query = Word.ransack(params[:q])
+    @words = @ransack_query.result(distinct: true).recent
     @pagy, @words = pagy(@words, items: Settings.word.pagy_items)
   end
 

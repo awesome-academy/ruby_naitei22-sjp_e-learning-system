@@ -7,12 +7,16 @@
       <span><%= t(".title") %></span>
     <% end %>
     <div class="header-actions">
-      <%= form_with url: admin_words_path, method: :get, class: "search-form", data: { turbo_frame: "words-table" } do %>
-        <%= text_field_tag :query, params[:query], placeholder: t(".search_placeholder"), class: "search-input" %>
-        <%= select_tag :filter_time,
-                         options_for_select(filter_time_options, params[:filter_time]),
-                         onchange: "this.form.requestSubmit()",
-                         class: "search-input" %>
+      <%= search_form_for @ransack_query, url: admin_words_path, local: true, class: "search-form", data: { turbo_frame: "words-table" } do |f| %>
+        <%= f.search_field :content_cont,
+                          placeholder: t(".search_word"),
+                          class: "search-input",
+                          value: params.dig(:q, :content_cont) %>
+        <%= f.search_field :meaning_cont,
+                          placeholder: t(".search_meaning"),
+                          class: "search-input",
+                          value: params.dig(:q, :meaning_cont) %>
+        <%= f.submit t(".search"), class: "button button-primary" %>
       <% end %>
       <%= link_to t(".new_word_button"), new_admin_word_path, class: "button button-primary" %>
     </div>
@@ -21,9 +25,9 @@
     <table class="data-table">
       <thead class="data-table-header">
         <tr>
-          <th><%= t(".table_headers.word") %></th>
-          <th><%= t(".table_headers.meaning") %></th>
-          <th><%= t(".table_headers.created_at") %></th>
+          <th><%= sort_link(@ransack_query, :content, t(".table_headers.word")) %></th>
+          <th><%= sort_link(@ransack_query, :meaning, t(".table_headers.meaning")) %></th>
+          <th><%= sort_link(@ransack_query, :created_at, t(".table_headers.created_at")) %></th>
           <th class="column-actions"><%= t(".table_headers.actions") %></th>
         </tr>
       </thead>

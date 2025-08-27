@@ -1,16 +1,12 @@
 class Admin::CoursesController < AdminController
   include Pagy::Backend
-
   load_and_authorize_resource
 
   # GET /admin/courses
   def index
-    @pagy, @courses = pagy(
-      Course.includes(Course::COURSE_PRELOAD)
-            .recent
-            .by_title(params[:search]),
-      limit: Settings.course.page_number
-    )
+    @ransack_query = Course.includes(Course::COURSE_PRELOAD).ransack(params[:q])
+    @courses = @ransack_query.result(distinct: true).recent
+    @pagy, @courses = pagy(@courses, limit: Settings.course.page_number)
   end
 
   # GET /admin/courses/:id

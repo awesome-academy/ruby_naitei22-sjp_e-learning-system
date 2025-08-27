@@ -82,6 +82,14 @@ numericality: {greater_than: MINIMUM_DURATION}
     percentage.round
   end
 
+  def self.ransackable_attributes _auth_object = nil
+    %w(title description duration created_at updated_at created_by_id)
+  end
+
+  def self.ransackable_associations _auth_object = nil
+    %w(creator lessons user_courses users admin_course_managers admins)
+  end
+
   private
 
   def assign_admin_managers_from_ids

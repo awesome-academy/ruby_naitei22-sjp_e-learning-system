@@ -4,10 +4,9 @@ class Admin::TestsController < AdminController
 
   # GET /admin/tests
   def index
-    @pagy, @tests = pagy(
-      Test.by_name(params[:search]).recent,
-      items: Settings.test.page_number
-    )
+    @ransack_query = Test.ransack(params[:q])
+    @tests = @ransack_query.result(distinct: true).recent
+    @pagy, @tests = pagy(@tests, items: Settings.test.page_number)
   end
 
   # GET /admin/tests/:id
