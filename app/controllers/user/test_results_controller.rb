@@ -1,8 +1,8 @@
 class User::TestResultsController < User::ApplicationController
-  before_action :set_course_and_lesson, only: %i(show)
-  before_action :set_test_result, only: %i(show)
+  load_and_authorize_resource :course
+  load_and_authorize_resource :lesson, through: :course
+  load_and_authorize_resource :test_result
   before_action :check_authorization, only: %i(show)
-
   # GET /user/courses/:course_id/lessons/:lesson_id/test_results/:test_result_id
   def show
     @test_component = @test_result.component
@@ -13,23 +13,6 @@ class User::TestResultsController < User::ApplicationController
   end
 
   private
-
-  def set_course_and_lesson
-    @course = Course.find_by(id: params[:course_id])
-    @lesson = @course&.lessons&.find_by(id: params[:lesson_id])
-    return if @course && @lesson
-
-    flash[:danger] = t(".error.course_or_lesson_not_found")
-    redirect_to root_path
-  end
-
-  def set_test_result
-    @test_result = TestResult.find_by(id: params[:id])
-    return if @test_result
-
-    flash[:danger] = t(".error.test_result_not_found")
-    redirect_to user_course_lesson_path(@course, @lesson)
-  end
 
   def check_authorization
     return if @test_result.user == current_user

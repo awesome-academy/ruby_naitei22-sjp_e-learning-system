@@ -53,6 +53,7 @@ gem "config"
 gem "bootsnap", require: false
 gem "bootstrap-sass", "3.4.1"
 
+gem "cancancan"
 gem "devise"
 gem "faker"
 gem "jquery-rails"

@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!,
-                :load_user,
-                :correct_user, only: %i(show edit update)
+  before_action :authenticate_user!
+  load_and_authorize_resource only: %i(show edit update)
 
   # GET /users/:id
   def show
@@ -45,6 +44,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(User::USER_PERMITTED)
+    permitted = params.require(:user).permit(User::USER_PERMITTED)
+    if permitted[:password].blank? && permitted[:password_confirmation].blank?
+      permitted.except(:password, :password_confirmation)
+    else
+      permitted
+    end
   end
 end

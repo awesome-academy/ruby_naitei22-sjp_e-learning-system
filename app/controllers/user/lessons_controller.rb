@@ -1,7 +1,6 @@
 class User::LessonsController < User::ApplicationController
   before_action :set_course, only: %i(show test_history)
-  before_action :set_lesson,
-                only: %i(show study test_history)
+  load_and_authorize_resource :lesson, through: :course, shallow: true
   before_action :set_user_lesson, only: %i(test_history)
   before_action :set_test_component, only: %i(test_history)
   before_action :check_word_empty, only: %i(study)
@@ -53,14 +52,6 @@ class User::LessonsController < User::ApplicationController
 
     flash[:danger] = t(".error.course_not_found")
     redirect_to root_path
-  end
-
-  def set_lesson
-    @lesson = Lesson.find_by(id: params[:id])
-    return if @lesson
-
-    flash[:danger] = t(".error.lesson_not_found")
-    redirect_to user_course_path(@course)
   end
 
   def check_word_empty

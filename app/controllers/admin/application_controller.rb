@@ -1,6 +1,6 @@
-class User::ApplicationController < ApplicationController
+class Admin::ApplicationController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user!
+  before_action :authorize_admin!
 
   rescue_from CanCan::AccessDenied do
     flash[:danger] = t("errors.messages.not_authorized")
@@ -9,7 +9,7 @@ class User::ApplicationController < ApplicationController
 
   private
 
-  def authorize_user!
-    authorize! :access, :user_namespace
+  def authorize_admin!
+    authorize! :access, :admin_namespace
   end
 end
