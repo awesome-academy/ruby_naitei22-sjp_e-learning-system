@@ -121,3 +121,9 @@ en:
   words:
     error:
       title: "Error"
+
+  tasks:
+    cleanup:
+      description: "Delete rejected enrolment requests older than 90 days"
+      found: "Found %{count} rejected enrolment requests older than 90 days."
+      success: "Successfully deleted %{count} rejected enrolment requests older than 90 days."
