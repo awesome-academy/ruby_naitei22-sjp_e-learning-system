@@ -5,6 +5,7 @@ en:
         filter_header: "Filter"
         search_label: "Search Word"
         search_placeholder: "Enter word to search..."
+        search_field_label: "Search By"
         search_fields:
           all: "Search by Word and Meaning"
           content: "Search by Word"
@@ -19,6 +20,7 @@ en:
           newest: "Newest"
           oldest: "Oldest"
           word_type: "Word Type"
+          default_sort: "Default Sort"
         word_types:
           noun: "Noun"
           pronoun: "Pronoun"

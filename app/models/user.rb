@@ -43,6 +43,14 @@ foreign_key: "created_by_id", dependent: :nullify
 
   validate :birthday_within_100_years
 
+  def self.ransackable_attributes _auth_object = nil
+    %w(name email gender birthday role created_at)
+  end
+
+  def self.ransackable_associations _auth_object = nil
+    %w(user_courses)
+  end
+
   def self.find_or_create_from_auth_hash auth
     user = find_by(email: auth.info.email)
 

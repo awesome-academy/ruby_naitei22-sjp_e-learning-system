@@ -7,12 +7,14 @@
       <span><%= t(".title") %></span>
     <% end %>
     <div class="header-actions">
-      <%= form_with url: admin_words_path, method: :get, class: "search-form", data: { turbo_frame: "words-table" } do %>
-        <%= text_field_tag :query, params[:query], placeholder: t(".search_placeholder"), class: "search-input" %>
-        <%= select_tag :filter_time,
-                         options_for_select(filter_time_options, params[:filter_time]),
-                         onchange: "this.form.requestSubmit()",
-                         class: "search-input" %>
+      <%= search_form_for @q, url: admin_words_path, class: "search-form", data: { turbo_frame: "words-table" } do |f| %>
+        <%= f.search_field :content_cont,
+            placeholder: t(".search_placeholder"),
+            class: "search-input" %>
+        <%= f.select :by_time,
+            options_for_select(filter_time_options, params.dig(:q, :by_time)&.to_sym),
+            { include_blank: false },
+            { onchange: "this.form.requestSubmit()", class: "search-input" } %>
       <% end %>
       <%= link_to t(".new_word_button"), new_admin_word_path, class: "button button-primary" %>
     </div>

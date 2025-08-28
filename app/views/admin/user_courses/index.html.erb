@@ -13,37 +13,37 @@
 
     <!-- Filter Section -->
     <div class="filter-section mb-4">
-      <%= form_with url: admin_user_courses_path, method: :get, local: true, class: "filter-form" do |form| %>
+      <%= search_form_for @q, url: admin_user_courses_path, class: "filter-form" do |f| %>
         <div class="filter-row">
           <div class="filter-group">
-            <%= form.label :course, t(".filters.course"), class: "filter-label" %>
-            <%= form.select :course, options_for_select(course_filter_options, params[:course]),
-                           {}, { class: "form-select" } %>
+            <%= f.label :course_id_eq, t(".filters.course"), class: "filter-label" %>
+            <%= f.select :course_id_eq, options_for_select(course_filter_options, params.dig(:q, :course_id_eq)),
+                {}, { class: "form-select" } %>
           </div>
 
           <div class="filter-group">
-            <%= form.label :status, t(".filters.status"), class: "filter-label" %>
-            <%= form.select :status, options_for_select(status_filter_options, params[:status]),
-                           {}, { class: "form-select" } %>
+            <%= f.label :enrolment_status_eq, t(".filters.status"), class: "filter-label" %>
+            <%= f.select :enrolment_status_eq, options_for_select(status_filter_options, params.dig(:q, :enrolment_status_eq)),
+                {}, { class: "form-select" } %>
           </div>
         </div>
 
         <div class="filter-row">
           <div class="filter-group">
-            <%= form.label :registered_from, t(".filters.registered_from"), class: "filter-label" %>
-            <%= form.date_field :registered_from, value: params[:registered_from],
-                               placeholder: t(".filters.placeholders.registered_from"), class: "form-control" %>
+            <%# registered_from -> created_at %>
+            <%= f.label :created_at_gteq, t(".filters.registered_from"), class: "filter-label" %>
+            <%= f.date_field :created_at_gteq, class: "form-control" %>
           </div>
 
           <div class="filter-group">
-            <%= form.label :expiration_date, t(".filters.expiration_date"), class: "filter-label" %>
-            <%= form.date_field :expiration_date, value: params[:expiration_date],
-                               placeholder: t(".filters.placeholders.expiration_date"), class: "form-control" %>
+            <%# expiration_date -> end_date %>
+            <%= f.label :end_date_lteq, t(".filters.expiration_date"), class: "filter-label" %>
+            <%= f.date_field :end_date_lteq, class: "form-control" %>
           </div>
         </div>
 
         <div class="filter-actions">
-          <%= form.submit t(".filters.filter_button"), class: "btn btn-primary" %>
+          <%= f.submit t(".filters.filter_button"), class: "btn btn-primary" %>
           <%= link_to t(".filters.clear_button"), admin_user_courses_path, class: "btn btn-outline-secondary" %>
         </div>
       <% end %>

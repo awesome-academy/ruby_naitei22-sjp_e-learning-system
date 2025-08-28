@@ -6,6 +6,7 @@ en:
       new:
         create_course: "Create Course"
       index:
+        search: "Search"
         course_list: "Course List"
         create_course: "Create Course"
         search_placeholder: "Search by course name"

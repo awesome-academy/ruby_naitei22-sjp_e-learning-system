@@ -11,8 +11,10 @@ class Admin::UserCoursesController < Admin::ApplicationController
 
   # GET /admin/user_courses
   def index
-    @user_courses = filter_user_courses
-    @pagy, @user_courses = pagy(@user_courses)
+    @q = UserCourse.ransack(params[:q])
+    @q.sorts = "created_at desc" if @q.sorts.empty?
+    user_courses = @q.result(distinct: true).includes(UserCourse::ASSOCIATIONS)
+    @pagy, @user_courses = pagy(user_courses)
     @courses = Course.all
   end
 
@@ -142,15 +144,6 @@ class Admin::UserCoursesController < Admin::ApplicationController
 
   def redirect_index_with_filters
     redirect_to admin_user_courses_path(preserved_filters)
-  end
-
-  def filter_user_courses
-    UserCourse.includes(UserCourse::ASSOCIATIONS)
-              .by_course(params[:course])
-              .by_status(params[:status])
-              .registered_from(params[:registered_from])
-              .expiration_date(params[:expiration_date])
-              .order(created_at: :desc)
   end
 
   def load_lessons

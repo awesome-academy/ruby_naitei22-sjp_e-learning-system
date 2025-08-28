@@ -9,7 +9,20 @@ class User::CoursesController < User::ApplicationController
   skip_before_action :authenticate_user!, only: %i(index)
   # GET user/courses
   def index
-    @pagy, @courses = pagy(filtered_courses, limit: Settings.page_6)
+    ransack_params = params[:q]&.to_unsafe_h || {}
+    if ransack_params["user_courses_enrolment_status_eq"].present?
+      ransack_params["user_courses_user_id_eq"] = current_user.id
+    end
+
+    @q = Course.ransack(ransack_params)
+    @q.sorts = "created_at desc" if @q.sorts.empty?
+
+    courses = @q.result(distinct: true)
+
+    @pagy, @courses = pagy(
+      courses.with_users.with_attached_thumbnail.includes(user_courses: :user),
+      limit: Settings.page_6
+    )
     @user_courses_map = build_user_courses_map
   end
 
@@ -112,17 +125,6 @@ class User::CoursesController < User::ApplicationController
       start_date:,
       end_date:
     )
-  end
-
-  def filtered_courses
-    status = current_user ? params[:status]&.to_sym : nil
-
-    Course.recent
-          .with_users
-          .with_attached_thumbnail
-          .search_name(params[:search])
-          .with_status_for_user(status, current_user)
-          .includes(user_courses: :user)
   end
 
   def build_user_courses_map

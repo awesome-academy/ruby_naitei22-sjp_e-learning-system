@@ -39,39 +39,17 @@ class Word < ApplicationRecord
     end
   }
 
-  scope :search, (lambda do |q, field = nil|
-    return all if q.blank?
+  def self.ransackable_attributes _auth_object = nil
+    %w(content meaning word_type created_at)
+  end
 
-    case field&.to_sym
-    when :content
-      where("content LIKE ?", "#{q}%")
-    when :meaning
-      where("meaning LIKE ?", "#{q}%")
-    else
-      where("content LIKE ? OR meaning LIKE ?", "#{q}%", "#{q}%")
-    end
-  end)
+  def self.ransackable_associations _auth_object = nil
+    %w(components)
+  end
 
-  scope :filter_by_type, (lambda do |type|
-                            if type.present? && type.to_s != "all"
-                              where(word_type: type)
-                            end
-                          end)
-
-  scope :sorted, (lambda do |sort|
-    case sort
-    when :alphabetical_desc
-      order(content: :desc)
-    when :newest
-      order(created_at: :desc)
-    when :oldest
-      order(created_at: :asc)
-    when :word_type
-      order(:word_type, :content)
-    else
-      order(content: :asc)
-    end
-  end)
+  def self.ransackable_scopes _auth_object = nil
+    [:by_time]
+  end
 
   def self.learned_word_ids_for user
     UserWord.joins(:component)

@@ -14,6 +14,12 @@ en:
         not_enrolled: "Not Enrolled"
         apply: "Apply"
         reset: "Reset"
+        learner_count: "Learner Count"
+        rangeone: "1 - 10 learners"
+        rangeeleven: "11 - 20 learners"
+        rangetwentyfirst: "21 - 30 learners"
+        rangeoverthirtyone: "Over 30 learners"
+        all_counts: "All"
       index:
         title: "Courses list"
         thumbnail: "Course Thumbnail"

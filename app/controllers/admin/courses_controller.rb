@@ -4,10 +4,10 @@ class Admin::CoursesController < Admin::ApplicationController
 
   # GET /admin/courses
   def index
+    @q = Course.ransack(params[:q])
+    @q.sorts = "created_at desc" if @q.sorts.empty?
     @pagy, @courses = pagy(
-      Course.includes(Course::COURSE_PRELOAD)
-            .recent
-            .by_title(params[:search]),
+      @q.result(distinct: true).includes(Course::COURSE_PRELOAD),
       limit: Settings.course.page_number
     )
   end

@@ -5,10 +5,12 @@ class Admin::WordsController < Admin::ApplicationController
 
   # GET /admin/words
   def index
-    @words = Word.by_content(params[:query])
-                 .by_time(params[:filter_time])
-                 .recent
-    @pagy, @words = pagy(@words, items: Settings.word.pagy_items)
+    @q = Word.ransack(params[:q])
+    @q.sorts = "created_at desc" if @q.sorts.empty?
+    @pagy, @words = pagy(
+      @q.result(distinct: true),
+      items: Settings.word.pagy_items
+    )
   end
 
   # GET /admin/words/new

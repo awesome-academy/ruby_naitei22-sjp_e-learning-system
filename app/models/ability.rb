@@ -47,9 +47,7 @@ completed))
   end
 
   def user_test_results_abilities user
-    can %i(show edit update), TestResult do |test_result|
-      test_result.user_id == user.id
-    end
+    can %i(show edit update), TestResult, user_id: user.id
   end
 
   def user_words_abilities
