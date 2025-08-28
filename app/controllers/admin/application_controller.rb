@@ -1,5 +1,6 @@
 class Admin::ApplicationController < ApplicationController
   before_action :authenticate_user!
+  before_action :admin_user
   before_action :authorize_admin!
 
   rescue_from CanCan::AccessDenied do

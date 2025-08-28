@@ -5,7 +5,7 @@ class User::CoursesController < User::ApplicationController
   before_action :set_user_course, only: %i(show start)
   before_action :set_lessons, :set_progress_data, only: %i(show)
   before_action :ensure_enrolment_approved, only: %i(start)
-  skip_before_action :authorize_user!, only: %i(index)
+  skip_before_action :ensure_user_role, only: %i(index)
   skip_before_action :authenticate_user!, only: %i(index)
   # GET user/courses
   def index

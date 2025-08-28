@@ -7,18 +7,18 @@ RSpec.describe Admin::TestsController, type: :controller do
   context "when a guest user is accessing" do
     it "redirects GET #index to the login page" do
       get :index
-      expect(response).to redirect_to(login_path)
+      expect(response).to redirect_to(new_user_session_path(locale: nil))
     end
 
     it "redirects POST #create to the login page" do
       post :create, params: {test: attributes_for(:test)}
-      expect(response).to redirect_to(login_path)
+      expect(response).to redirect_to(new_user_session_path(locale: nil))
     end
   end
 
   context "when an admin user is logged in" do
     before do
-      allow(controller).to receive(:current_user).and_return(admin)
+      sign_in admin
     end
 
     describe "GET #index" do
