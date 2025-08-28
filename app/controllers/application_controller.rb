@@ -31,4 +31,18 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up,
                                       keys: [:name, :birthday, :gender])
   end
+
+  def ensure_user_role
+    return if current_user&.user?
+
+    flash[:danger] = t(".error.not_authenticated")
+    redirect_to root_path
+  end
+
+  def admin_user
+    return if current_user.admin?
+
+    flash[:danger] = t("flash.not_authorized")
+    redirect_to root_path
+  end
 end

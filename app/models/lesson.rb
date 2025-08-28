@@ -4,6 +4,7 @@ class Lesson < ApplicationRecord
 
   has_many :components, dependent: :destroy
   has_many :user_lessons, dependent: :destroy
+  has_many :test_results, through: :components
 
   accepts_nested_attributes_for :components, allow_destroy: true
 

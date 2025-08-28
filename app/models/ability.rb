@@ -32,10 +32,7 @@ class Ability
       user.user_courses.exists?(course_id: course.id,
                                 enrolment_status: :approved)
     end
-    can :show, Course do |course|
-      user.user_courses.exists?(course_id: course.id,
-                                enrolment_status: %i(in_progress completed))
-    end
+    can :show, Course
   end
 
   def user_lessons_abilities user

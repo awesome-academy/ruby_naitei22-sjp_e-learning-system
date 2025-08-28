@@ -93,6 +93,7 @@ vi:
       invalid: "không hợp lệ"
       taken: "đã được sử dụng"
       not_authorized: "Bạn không có quyền thực hiện hành động này."
+      record_not_found: "Không tìm thấy bản ghi bạn đang tìm kiếm."
       too_long:
         one: "quá dài (tối đa là 1 ký tự)"
         other: "quá dài (tối đa là %{count} ký tự)"
