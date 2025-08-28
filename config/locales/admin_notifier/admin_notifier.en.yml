@@ -1,0 +1,11 @@
+en:
+  admin_notifier:
+    pending_registrations:
+      subject: "New Course Registration Requests Awaiting Approval"
+      greeting: "Hello %{name}!"
+      intro: "The system has new course registration requests that are pending your approval:"
+      course_header: "Course: %{course_title}"
+      user_info: "User: %{user_name} (%{user_email})"
+      registered_at: "Registration Date: %{date}"
+      call_to_action: "Please log in to the admin panel to view details and approve."
+      no_pending: "There are no pending registrations to approve."

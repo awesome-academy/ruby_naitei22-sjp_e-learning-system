@@ -1,0 +1,11 @@
+vi:
+  admin_notifier:
+    pending_registrations:
+      subject: "Có yêu cầu đăng ký khóa học mới cần xét duyệt"
+      greeting: "Xin chào %{name}!"
+      intro: "Hệ thống có các yêu cầu đăng ký khóa học mới đang chờ bạn xét duyệt:"
+      course_header: "Khóa học: %{course_title}"
+      user_info: "Người dùng: %{user_name} (%{user_email})"
+      registered_at: "Ngày đăng ký: %{date}"
+      call_to_action: "Vui lòng đăng nhập vào trang quản trị để xem chi tiết và phê duyệt."
+      no_pending: "Không có yêu cầu đăng ký nào cần xét duyệt."
