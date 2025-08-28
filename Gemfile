@@ -60,6 +60,7 @@ gem "jquery-rails"
 gem "pagy"
 gem "responders", "~> 3.1"
 gem "sidekiq"
+gem "whenever"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
