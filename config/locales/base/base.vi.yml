@@ -121,3 +121,9 @@ vi:
   words:
     error:
       title: "Lỗi"
+
+  tasks:
+    cleanup:
+      description: "Xóa yêu cầu đăng ký bị từ chối đã hơn 90 ngày"
+      found: "Tìm thấy %{count} yêu cầu đăng ký bị từ chối đã hơn 90 ngày."
+      success: "Đã xóa thành công %{count} yêu cầu đăng ký bị từ chối đã hơn 90 ngày."
