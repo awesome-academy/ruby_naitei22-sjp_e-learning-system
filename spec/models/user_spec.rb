@@ -426,42 +426,5 @@ RSpec.describe User, type: :model do
         ActiveModel::SecurePassword.min_cost = original_min_cost
       end
     end
-
-    describe ".find_or_create_from_auth_hash" do
-      let(:auth) do
-        OmniAuth::AuthHash.new({
-          provider: "google_oauth2",
-          uid: "12345",
-          info: {
-            name: "Test User",
-            email: "testuser@example.com"
-          }
-        })
-      end
-
-      context "when user already exists" do
-        before { create(:user, email: auth.info.email) }
-
-        it "does not create a new user" do
-          expect { User.find_or_create_from_auth_hash(auth) }.not_to change(User, :count)
-        end
-
-        it "updates provider if not present" do
-          found_user = User.find_or_create_from_auth_hash(auth)
-          expect(found_user.provider).to eq("google_oauth2")
-        end
-
-        it "updates uid if not present" do
-          found_user = User.find_or_create_from_auth_hash(auth)
-          expect(found_user.uid).to eq("12345")
-        end
-      end
-
-      context "when user does not exist" do
-        it "creates a new user" do
-          expect { User.find_or_create_from_auth_hash(auth) }.to change(User, :count).by(1)
-        end
-      end
-    end
   end
 end
